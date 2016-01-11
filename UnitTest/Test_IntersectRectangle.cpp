@@ -1,7 +1,7 @@
 #include <QTest>
 
 #include "Test_IntersectRectangle.h"
-#include "../IntersectRectangle.h"
+#include "../Tanks/IntersectRectangle.h"
 
 Test_IntersectRectangle::Test_IntersectRectangle()
 {
