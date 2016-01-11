@@ -13,4 +13,4 @@ SOURCES += main.cpp \
 HEADERS += \
     Test_IntersectRectangle.h
 
-LIBS += Build/debug/IntersectRectangle.o
+LIBS += $$PWD/../Build/Tanks/debug/IntersectRectangle.o
