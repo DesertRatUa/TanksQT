@@ -19,7 +19,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "BlockOfBrickWall.h"
+#include "BrickWall.h"
 
 int BlockOfBrickWall::m_nextId = 0;
 
