@@ -22,7 +22,7 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
-#include "Plane.h"
+#include "MapObjects/Plane.h"
 
 class Projectile : public Plane
 {

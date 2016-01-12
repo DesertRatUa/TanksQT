@@ -20,60 +20,60 @@ SOURCES += main.cpp\
         Dialog.cpp \
     Scene.cpp \
     Ice.cpp \
-    Plane.cpp \
+    MapObjects/Plane.cpp \
     Projectile.cpp \
     SoundOfShot.cpp \
     SoundOfTankExplosion.cpp \
     SoundOfProjectileExplosion.cpp \
     ExplosionOfProjectile.cpp \
     ExplosionOfTank.cpp \
-    OuterBoundary.cpp \
-    Eagle.cpp \
+    MapObjects/OuterBoundary.cpp \
+    MapObjects/Eagle.cpp \
     Controlls.cpp \
-    TankRender.cpp \
-    Tank.cpp \
+    MapObjects/TankRender.cpp \
+    MapObjects/Tank.cpp \
     Colission.cpp \
-    OuterBoundaryStore.cpp \
-    EagleStore.cpp \
+    MapObjects/OuterBoundaryStore.cpp \
+    MapObjects/EagleStore.cpp \
     Log.cpp \
     IntersectRectangle.cpp \
     XBoxController/XBoxControllerThread.cpp \
     XBoxController/XBoxController.cpp \
-    BrickStore.cpp \
-    BrickWall.cpp
+    MapObjects/BrickStore.cpp \
+    MapObjects/BrickWall.cpp
 
 HEADERS  += Dialog.h \
     Scene.h \
     Ice.h \
-    Plane.h \
+    MapObjects/Plane.h \
     Projectile.h \
     SoundOfShot.h \
     SoundOfTankExplosion.h \
     SoundOfProjectileExplosion.h \
     ExplosionOfProjectile.h \
     ExplosionOfTank.h \
-    OuterBoundary.h \
-    Eagle.h \
+    MapObjects/OuterBoundary.h \
+    MapObjects/Eagle.h \
     Controlls.h \
-    TankRender.h \
-    Tank.h \
-    ITank.h \
+    MapObjects/TankRender.h \
+    MapObjects/Tank.h \
+    MapObjects/ITank.h \
     Colission.h \
     IColission.h \
-    OuterBoundaryStore.h \
-    IOuterBoundaryStore.h \
+    MapObjects/OuterBoundaryStore.h \
+    MapObjects/IOuterBoundaryStore.h \
     IScene.h \
-    EagleStore.h \
-    IPlane.h \
+    MapObjects/EagleStore.h \
+    MapObjects/IPlane.h \
     Log.h \
     IntersectRectangle.h \
     XBoxController/XBoxControllerThread.h \
     XBoxController/XBoxController.h \
     XBoxController/XBoxControllerEvent.h \
-    BrickStore.h \
+    MapObjects/BrickStore.h \
     IControlls.h \
-    ISceneObjectsStore.h \
-    BrickWall.h
+    MapObjects/ISceneObjectsStore.h \
+    MapObjects/BrickWall.h
 
 FORMS    += Dialog.ui
 

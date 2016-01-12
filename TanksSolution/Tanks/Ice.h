@@ -22,7 +22,7 @@
 #ifndef ICE_H
 #define ICE_H
 
-#include "Plane.h"
+#include "MapObjects/Plane.h"
 
 class Ice : public Plane
 {

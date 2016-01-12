@@ -24,8 +24,9 @@
 
 #include <QTimer>
 #include <QObject>
-#include "Plane.h"
 #include <vector>
+
+#include "MapObjects/Plane.h"
 
 class ExplosionOfTank : public QObject, public Plane
 {
