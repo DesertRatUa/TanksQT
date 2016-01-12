@@ -28,7 +28,6 @@ SOURCES += main.cpp\
     ExplosionOfProjectile.cpp \
     ExplosionOfTank.cpp \
     OuterBoundary.cpp \
-    BlockOfBrickWall.cpp \
     Eagle.cpp \
     Controlls.cpp \
     TankRender.cpp \
@@ -40,7 +39,8 @@ SOURCES += main.cpp\
     IntersectRectangle.cpp \
     XBoxController/XBoxControllerThread.cpp \
     XBoxController/XBoxController.cpp \
-    BrickStore.cpp
+    BrickStore.cpp \
+    BrickWall.cpp
 
 HEADERS  += Dialog.h \
     Scene.h \
@@ -53,7 +53,6 @@ HEADERS  += Dialog.h \
     ExplosionOfProjectile.h \
     ExplosionOfTank.h \
     OuterBoundary.h \
-    BlockOfBrickWall.h \
     Eagle.h \
     Controlls.h \
     TankRender.h \
@@ -73,7 +72,8 @@ HEADERS  += Dialog.h \
     XBoxController/XBoxControllerEvent.h \
     BrickStore.h \
     IControlls.h \
-    ISceneObjectsStore.h
+    ISceneObjectsStore.h \
+    BrickWall.h
 
 FORMS    += Dialog.ui
 

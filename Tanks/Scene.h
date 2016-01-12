@@ -34,7 +34,7 @@
 #include "ExplosionOfProjectile.h"
 #include "ExplosionOfTank.h"
 #include "IOuterBoundaryStore.h"
-#include "BlockOfBrickWall.h"
+#include "BrickWall.h"
 #include "IControlls.h"
 #include "IColission.h"
 #include "IScene.h"
