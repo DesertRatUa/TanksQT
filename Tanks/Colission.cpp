@@ -1,8 +1,9 @@
-#include "Colission.h"
-#include "IOuterBoundaryStore.h"
-#include "IScene.h"
 #include <assert.h>
 #include <algorithm>
+
+#include "Colission.h"
+#include "MapObjects/IOuterBoundaryStore.h"
+#include "IScene.h"
 #include "Log.h"
 #include "IntersectRectangle.h"
 

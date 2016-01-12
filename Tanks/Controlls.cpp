@@ -1,7 +1,8 @@
-#include "Controlls.h"
 #include <QKeyEvent>
 #include <assert.h>
-#include "ITank.h"
+
+#include "Controlls.h"
+#include "MapObjects/ITank.h"
 #include "IScene.h"
 
 Controlls::Controlls( IScene &scene ) : m_scene(scene)

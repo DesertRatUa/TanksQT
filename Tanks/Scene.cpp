@@ -29,11 +29,11 @@
 #include "SoundOfProjectileExplosion.h"
 #include "XBoxController/XBoxControllerThread.h"
 #include "Colission.h"
-#include "OuterBoundaryStore.h"
-#include "Tank.h"
-#include "EagleStore.h"
+#include "MapObjects/OuterBoundaryStore.h"
+#include "MapObjects/Tank.h"
+#include "MapObjects/EagleStore.h"
 #include "Controlls.h"
-#include "BrickStore.h"
+#include "MapObjects/BrickStore.h"
 
 
 static const float step = 10.0f;

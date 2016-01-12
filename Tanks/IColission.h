@@ -1,7 +1,7 @@
 #ifndef ICOLISSION
 #define ICOLISSION
 
-#include "IPlane.h"
+#include "MapObjects/IPlane.h"
 
 struct MovementParams
 {

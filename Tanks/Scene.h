@@ -28,17 +28,17 @@
 #include <QTimer>
 #include <map>
 #include <QOpenGLFunctions>
-#include "ITank.h"
+#include "MapObjects/ITank.h"
 #include "Ice.h"
 #include "Projectile.h"
 #include "ExplosionOfProjectile.h"
 #include "ExplosionOfTank.h"
-#include "IOuterBoundaryStore.h"
-#include "BrickWall.h"
+#include "MapObjects/IOuterBoundaryStore.h"
+#include "MapObjects/BrickWall.h"
 #include "IControlls.h"
 #include "IColission.h"
 #include "IScene.h"
-#include "ISceneObjectsStore.h"
+#include "MapObjects/ISceneObjectsStore.h"
 
 
 class Scene : public QOpenGLWidget, protected QOpenGLFunctions, public IScene
