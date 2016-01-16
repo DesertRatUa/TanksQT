@@ -380,8 +380,7 @@ void Scene::Update()
     update();
 }
 
-RenderParam& Scene::GetRenderParam()
+RenderParam* Scene::GetRenderParam()
 {
-    assert( m_renderParam.get() );
-    return *m_renderParam;
+    return m_renderParam.get();
 }

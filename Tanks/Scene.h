@@ -53,8 +53,8 @@ public:
     virtual float GetHeigth() const;
     virtual const IOuterBoundaryStore* GetOuterBoundary() const;
     virtual IColission* GetColission();
-    virtual ITank *GetTank();
-    virtual RenderParam &GetRenderParam();
+    virtual ITank* GetTank();
+    virtual RenderParam* GetRenderParam();
 
     virtual void Update();
 
