@@ -1,6 +1,8 @@
+#include <QTest>
+
 #include "Test_Colission.h"
 #include "Colission.h"
-#include "SceneWrapper.h"
+#include "Wrappers/SceneWrapper.h"
 
 Test_Colission::Test_Colission(QObject *parent) : QObject(parent)
 {
@@ -15,7 +17,8 @@ void Test_Colission::initTestCase()
 
 void Test_Colission::cleanup()
 {
-    m_colission->clear();
+    m_colission->Clear();
+    QVERIFY( m_colission->Size() == 0 );
 }
 
 void Test_Colission::TestAddObject()
