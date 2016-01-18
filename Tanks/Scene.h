@@ -33,12 +33,12 @@
 #include "Projectile.h"
 #include "ExplosionOfProjectile.h"
 #include "ExplosionOfTank.h"
-#include "MapObjects/IOuterBoundaryStore.h"
+#include "MapObjectsStore//IOuterBoundaryStore.h"
 #include "MapObjects/BrickWall.h"
 #include "IControlls.h"
 #include "IColission.h"
 #include "IScene.h"
-#include "MapObjects/ISceneObjectsStore.h"
+#include "MapObjectsStore/ISceneObjectsStore.h"
 
 
 class Scene : public QOpenGLWidget, protected QOpenGLFunctions, public IScene

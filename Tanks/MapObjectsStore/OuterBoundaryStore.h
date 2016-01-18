@@ -1,6 +1,6 @@
 #ifndef OUTERBOUNDARYSTORE_H
 #define OUTERBOUNDARYSTORE_H
-#include "OuterBoundary.h"
+#include "MapObjects/OuterBoundary.h"
 #include "IOuterBoundaryStore.h"
 #include <memory>
 

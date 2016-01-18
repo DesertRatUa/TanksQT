@@ -2,7 +2,7 @@
 #include <algorithm>
 
 #include "Colission.h"
-#include "MapObjects/IOuterBoundaryStore.h"
+#include "MapObjectsStore/IOuterBoundaryStore.h"
 #include "IScene.h"
 #include "Log.h"
 #include "IntersectRectangle.h"

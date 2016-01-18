@@ -1,7 +1,7 @@
 #ifndef OUTERBOUNDARYSTOREWRAPPER_H
 #define OUTERBOUNDARYSTOREWRAPPER_H
 
-#include "MapObjects/IOuterBoundaryStore.h"
+#include "MapObjectsStore/IOuterBoundaryStore.h"
 
 class OuterBoundaryStoreWrapper : public IOuterBoundaryStore
 {

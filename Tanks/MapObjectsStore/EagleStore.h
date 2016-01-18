@@ -1,7 +1,7 @@
 #ifndef EAGLESTORE_H
 #define EAGLESTORE_H
 #include "ISceneObjectsStore.h"
-#include "Eagle.h"
+#include "MapObjects/Eagle.h"
 #include "memory"
 
 class IScene;
