@@ -19,6 +19,7 @@ private slots:
 
     void TestAddObject();
     void TestRemoveObject();
+    void TestColissionOuterBoundary();
 
 private:
     std::unique_ptr<IColission> m_colission;
