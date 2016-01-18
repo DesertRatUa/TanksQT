@@ -13,17 +13,17 @@
 class Log
 {
 public:
-	Log();
-	virtual ~Log();
+    virtual ~Log();
 
-	static void Init( std::string path ) throw ( std::exception );
+    static void Init( std::string path ) throw ( std::exception );
 	static void Close();
 	static void SetName( const std::string &name );
 
-	static void AddMessage( std::string message );
-	static void AddLog( std::string log );
-	static void Add( std::string log );
-	static void AddException( std::string name, const std::exception &exc );
+    static void Message( const std::string message );
+    static void LogToFile( const std::string log );
+    static void Add( const std::string log );
+    static void Exception( const std::string name, const std::exception &exc );
+    static void Warning( const std::string log );
 
 	static std::string IntToStr( const int value );
 	static std::string IntToStr( const unsigned value );

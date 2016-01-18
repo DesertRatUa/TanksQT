@@ -53,8 +53,18 @@ bool Colission::CheckColissionObjects( MovementParams &param ) const
 void Colission::AddColissionObject( const TiPlanePtr &plane )
 {
     assert(plane.get());
-    m_colissionObjects.push_back(plane);
-    Log::Add( "Add colission object: " + plane->GetName() );
+    TPlanePtrVec::iterator it = std::find(
+                m_colissionObjects.begin(), m_colissionObjects.end(), plane );
+
+    if (it == m_colissionObjects.end())
+    {
+        m_colissionObjects.push_back(plane);
+        Log::Add( "[Colission] Add colission object: " + plane->GetName() );
+    }
+    else
+    {
+        Log::Warning( "[Colission] Item already exist" );
+    }
 }
 
 void Colission::RemoveColissionObject( const TiPlanePtr &plane )
