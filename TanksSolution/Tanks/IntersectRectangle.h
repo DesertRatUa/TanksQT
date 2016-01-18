@@ -5,7 +5,7 @@ struct Rectangle
 {
 public:
     Rectangle();
-    Rectangle( const float x1, const float x2, const float y1, const float y2 );
+    Rectangle( const float x1, const float y1, const float x2, const float y2 );
     bool IsIntersect( const Rectangle &rec1 ) const;
 
     float m_x1;

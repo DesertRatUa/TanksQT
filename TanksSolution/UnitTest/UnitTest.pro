@@ -20,3 +20,5 @@ HEADERS += \
 LIBS += $$PWD/../Build/Tanks/debug/IntersectRectangle.o $$PWD/../Build/Tanks/debug/Colission.o $$PWD/../Build/Tanks/debug/Log.o
 
 INCLUDEPATH += $$PWD/../Tanks
+
+#QMAKE_CXXFLAGS_WARN_ON = -Wall -Wno-reorder

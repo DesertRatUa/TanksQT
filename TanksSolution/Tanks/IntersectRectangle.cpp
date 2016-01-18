@@ -5,7 +5,7 @@ Rectangle::Rectangle() : m_x1(0), m_x2(0), m_y1(0), m_y2(0)
 {
 }
 
-Rectangle::Rectangle( const float x1, const float x2, const float y1, const float y2 ) :
+Rectangle::Rectangle( const float x1, const float y1, const float x2, const float y2 ) :
     m_x1(x1), m_x2(x2), m_y1(y1), m_y2(y2)
 {
 }
@@ -25,9 +25,9 @@ bool IntersectRectangle::IsIntersect( const Rectangle &rec1, const Rectangle &re
         return false;
     return true;
     */
-    bool intersect = rec1.m_x1 < rec2.m_x2 &&
-        rec1.m_x2 > rec2.m_x1 &&
-        rec1.m_y1 < rec2.m_y2 &&
-        rec1.m_y2 > rec2.m_y1;
+    bool intersect = rec1.m_x1 <= rec2.m_x2 &&
+        rec1.m_x2 >= rec2.m_x1 &&
+        rec1.m_y1 <= rec2.m_y2 &&
+        rec1.m_y2 >= rec2.m_y1;
     return intersect;
 }
