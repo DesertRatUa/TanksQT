@@ -15,7 +15,7 @@ void Test_Colission::initTestCase()
 
 void Test_Colission::cleanup()
 {
-
+    m_colission->clear();
 }
 
 void Test_Colission::TestAddObject()

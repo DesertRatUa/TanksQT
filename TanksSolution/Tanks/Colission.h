@@ -17,6 +17,7 @@ public:
     virtual void RemoveColissionObject( const TiPlanePtr &plane );
 
     virtual void Clear();
+    virtual unsigned Size() const;
 
 protected:
     bool CheckOuterBoundary(MovementParams &param) const;
