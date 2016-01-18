@@ -59,3 +59,8 @@ void Test_Colission::TestRemoveObject()
     m_colission->RemoveColissionObject( obj2 );
     QCOMPARE( m_colission->Size(), unsigned(0) );
 }
+
+void Test_Colission::TestColissionOuterBoundary()
+{
+
+}
