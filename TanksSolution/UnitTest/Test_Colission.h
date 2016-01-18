@@ -5,7 +5,8 @@
 #include <memory>
 
 #include "IColission.h"
-#include "IScene.h"
+#include "Wrappers/SceneWrapper.h"
+#include "Wrappers/OuterBoundaryStoreWrapper.h"
 
 class Test_Colission : public QObject
 {
@@ -19,11 +20,17 @@ private slots:
 
     void TestAddObject();
     void TestRemoveObject();
-    void TestColissionOuterBoundary();
+    void TestOuterBoundaryDeny();
+    void TestOuterBoundaryAllow();
+    void TestMapObjectsDeny();
+    void TestMapObjectsAllow();
+    void TestNull();
 
 private:
     std::unique_ptr<IColission> m_colission;
-    std::unique_ptr<IScene> m_scene;
+
+    OuterBoundaryStoreWrapper m_outerBoundary;
+    SceneWrapper m_scene;
 };
 
 #endif // TEST_COLISSION_H

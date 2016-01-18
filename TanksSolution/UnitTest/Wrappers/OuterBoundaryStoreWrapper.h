@@ -8,6 +8,10 @@ class OuterBoundaryStoreWrapper : public IOuterBoundaryStore
 public:
     OuterBoundaryStoreWrapper();
 
+    virtual void Init( const RenderParam &param );
+    virtual void Draw();
+    virtual void Clear();
+
     virtual float GetMaxX() const;
     virtual float GetMaxY() const;
     virtual float GetMinX() const;
