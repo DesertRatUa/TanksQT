@@ -23,6 +23,7 @@ public:
     virtual void RemoveColissionObject( const TiPlanePtr &plane ) = 0;
 
     virtual void Clear() = 0;
+    virtual unsigned Size() const = 0;
 };
 
 #endif // ICOLISSION

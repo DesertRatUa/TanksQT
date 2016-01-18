@@ -10,12 +10,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     Test_IntersectRectangle.cpp \
     Test_Colission.cpp \
-    SceneWrapper.cpp
+    SceneWrapper.cpp \
+    PlaneWrapper.cpp
 
 HEADERS += \
     Test_IntersectRectangle.h \
     Test_Colission.h \
-    SceneWrapper.h
+    SceneWrapper.h \
+    PlaneWrapper.h
 
 LIBS += $$PWD/../Build/Tanks/debug/IntersectRectangle.o $$PWD/../Build/Tanks/debug/Colission.o $$PWD/../Build/Tanks/debug/Log.o
 

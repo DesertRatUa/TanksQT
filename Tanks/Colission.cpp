@@ -44,13 +44,6 @@ bool Colission::CheckColissionObjects( MovementParams &param ) const
                         object.GetX() + object.GetWidth(),
                         object.GetY() + object.GetHeight() );
 
-        /*
-        bool col = param.m_y < object.GetY() + object.GetHeight() ||
-             param.m_y + param.m_height > object.GetY() ||
-             param.m_x + param.m_width < object.GetX() ||
-             param.m_x > object.GetX() + object.GetWidth();
-        */
-
         if ( obj1.IsIntersect(obj2) )
             return false;
     }
@@ -79,4 +72,9 @@ void Colission::RemoveColissionObject( const TiPlanePtr &plane )
 void Colission::Clear()
 {
     m_colissionObjects.clear();
+}
+
+unsigned Colission::Size() const
+{
+    return m_colissionObjects.size();
 }
