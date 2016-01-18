@@ -17,13 +17,9 @@ std::mutex Log::m_logMut;
 std::ofstream Log::m_log;
 std::string Log::m_name;
 
-Log::Log()
-{
-}
-
 Log::~Log()
 {
-	m_log.close();
+    Log::Close();
 }
 
 void Log::Init( std::string path ) throw ( std::exception )
@@ -42,13 +38,13 @@ void Log::Close()
 {
 	m_log.close();
 }
-void Log::AddMessage( std::string message )
+void Log::Message( const std::string message )
 {
 	std::lock_guard<std::mutex> lock( m_messageMut );
     qDebug("%s \t %s", PrintTime().c_str(), message.c_str());
 }
 
-void Log::AddLog( std::string log )
+void Log::LogToFile( const std::string log )
 {
 	if ( !m_log.is_open() ) return;
 	std::lock_guard<std::mutex> lock( m_logMut );
@@ -60,17 +56,20 @@ void Log::AddLog( std::string log )
 	m_log << log << std::endl;
 }
 
-void Log::Add( std::string log )
+void Log::Add( const std::string log )
 {
-	AddMessage( log );
-	AddLog( log );
+    Message( log );
+    Add( log );
 }
 
-void Log::AddException( std::string name, const std::exception &exc )
+void Log::Exception( const std::string name, const std::exception &exc )
 {
-	name += " exception: ";
-	name += exc.what();
-	Add( name );
+    Add( name + " exception: " + exc.what() );
+}
+
+void Log::Warning( const std::string log )
+{
+    Add( "Warnning: " + log );
 }
 
 std::string Log::PrintTime()

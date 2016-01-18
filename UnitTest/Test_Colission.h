@@ -18,6 +18,7 @@ private slots:
     void cleanup();
 
     void TestAddObject();
+    void TestRemoveObject();
 
 private:
     std::unique_ptr<IColission> m_colission;
