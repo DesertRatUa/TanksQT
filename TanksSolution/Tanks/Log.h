@@ -23,7 +23,8 @@ public:
     static void LogToFile( const std::string log );
     static void Add( const std::string log );
     static void Exception( const std::string name, const std::exception &exc );
-    static void Warning( const std::string log );
+    static void Warning( std::string log );
+    static void Error( std::string log );
 
 	static std::string IntToStr( const int value );
 	static std::string IntToStr( const unsigned value );
@@ -41,6 +42,7 @@ protected:
 
 	static std::ofstream m_log;
 	static std::string m_name;
+    static bool m_enable;
 };
 
 #endif /* LOG_H_ */

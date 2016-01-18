@@ -7,7 +7,6 @@
 
 Test_Colission::Test_Colission(QObject *parent) : QObject(parent)
 {
-
 }
 
 void Test_Colission::initTestCase()
@@ -19,31 +18,44 @@ void Test_Colission::initTestCase()
 void Test_Colission::cleanup()
 {
     m_colission->Clear();
-    QVERIFY( m_colission->Size() == 0 );
+    QCOMPARE( m_colission->Size(), unsigned(0) );
 }
 
 void Test_Colission::TestAddObject()
 {
-    m_colission->Clear();
-    QVERIFY( m_colission->Size() == 0 );
-
     TiPlanePtr obj1(new PlaneWrapper);
     TiPlanePtr obj2(new PlaneWrapper);
 
     m_colission->AddColissionObject(obj1);
-    QVERIFY( m_colission->Size() == 1 );
+    QCOMPARE( m_colission->Size(), unsigned(1) );
+
+    m_colission->AddColissionObject(obj1);
+    QCOMPARE( m_colission->Size(), unsigned(1) );
 
     m_colission->AddColissionObject(obj2);
-    QVERIFY( m_colission->Size() == 2 );
+    QCOMPARE( m_colission->Size(), unsigned(2) );
+
+    m_colission->AddColissionObject(obj2);
+    QCOMPARE( m_colission->Size(), unsigned(2) );
 }
 
 void Test_Colission::TestRemoveObject()
 {
-    m_colission->Clear();
-    QVERIFY( m_colission->Size() == 0 );
-
     TiPlanePtr obj1(new PlaneWrapper);
     TiPlanePtr obj2(new PlaneWrapper);
 
+    m_colission->AddColissionObject(obj1);
+    m_colission->AddColissionObject(obj2);
 
+    m_colission->RemoveColissionObject( obj1 );
+    QCOMPARE( m_colission->Size(), unsigned(1) );
+
+    m_colission->RemoveColissionObject( obj1 );
+    QCOMPARE( m_colission->Size(), unsigned(1) );
+
+    m_colission->RemoveColissionObject( obj2 );
+    QCOMPARE( m_colission->Size(), unsigned(0) );
+
+    m_colission->RemoveColissionObject( obj2 );
+    QCOMPARE( m_colission->Size(), unsigned(0) );
 }

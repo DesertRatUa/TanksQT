@@ -70,11 +70,13 @@ void Colission::AddColissionObject( const TiPlanePtr &plane )
 void Colission::RemoveColissionObject( const TiPlanePtr &plane )
 {
     assert(plane.get());
-    Log::Add( "Remove colission object: " + plane->GetName() );
     TPlanePtrVec::iterator it = std::find(
                 m_colissionObjects.begin(), m_colissionObjects.end(), plane );
     if (it != m_colissionObjects.end())
+    {
         m_colissionObjects.erase(it);
+        Log::Add( "[Colission] Remove colission object: " + plane->GetName() );
+    }
     else
         Log::Add( "[Error] Colission object " + plane->GetName() + " not found" );
 }
@@ -82,6 +84,7 @@ void Colission::RemoveColissionObject( const TiPlanePtr &plane )
 void Colission::Clear()
 {
     m_colissionObjects.clear();
+    Log::Add( "[Colission] Clear" );
 }
 
 unsigned Colission::Size() const

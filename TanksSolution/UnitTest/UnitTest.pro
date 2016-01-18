@@ -11,13 +11,15 @@ SOURCES += main.cpp \
     Test_IntersectRectangle.cpp \
     Test_Colission.cpp \
     Wrappers/SceneWrapper.cpp \
-    Wrappers/PlaneWrapper.cpp
+    Wrappers/PlaneWrapper.cpp \
+    Test_Log.cpp
 
 HEADERS += \
     Test_IntersectRectangle.h \
     Test_Colission.h \
     Wrappers/SceneWrapper.h \
-    Wrappers/PlaneWrapper.h
+    Wrappers/PlaneWrapper.h \
+    Test_Log.h
 
 LIBS += $$PWD/../Build/Tanks/debug/IntersectRectangle.o $$PWD/../Build/Tanks/debug/Colission.o $$PWD/../Build/Tanks/debug/Log.o
 
