@@ -25,9 +25,17 @@ bool IntersectRectangle::IsIntersect( const Rectangle &rec1, const Rectangle &re
         return false;
     return true;
     */
+    bool b1 = rec1.m_x1 <= rec2.m_x2;
+    bool b2 = rec1.m_x2 >= rec2.m_x1;
+    bool b3 = rec1.m_y1 <= rec2.m_y2;
+    bool b4 = rec1.m_y2 >= rec2.m_y1;
+    bool intersect = b1 && b2 && b3 && b4;
+
+    /*
     bool intersect = rec1.m_x1 <= rec2.m_x2 &&
         rec1.m_x2 >= rec2.m_x1 &&
         rec1.m_y1 <= rec2.m_y2 &&
         rec1.m_y2 >= rec2.m_y1;
+    */
     return intersect;
 }

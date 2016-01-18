@@ -11,6 +11,7 @@ public:
 
 private slots:
     void TestIntersect();
+    void TestNoIntersect();
 };
 
 #endif // TEST_INTERSECTRECTANGLE_H

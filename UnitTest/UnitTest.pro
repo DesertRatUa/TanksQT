@@ -21,4 +21,7 @@ LIBS += $$PWD/../Build/Tanks/debug/IntersectRectangle.o $$PWD/../Build/Tanks/deb
 
 INCLUDEPATH += $$PWD/../Tanks
 
-#QMAKE_CXXFLAGS_WARN_ON = -Wall -Wno-reorder
+QMAKE_CFLAGS_DEBUG -= -O
+QMAKE_CFLAGS_DEBUG -= -O1
+QMAKE_CFLAGS_DEBUG -= -O2
+QMAKE_CFLAGS_DEBUG -= -O3
