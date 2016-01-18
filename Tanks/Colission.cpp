@@ -32,16 +32,17 @@ bool Colission::CheckOuterBoundary( MovementParams &param ) const
 
 bool Colission::CheckColissionObjects( MovementParams &param ) const
 {
-    Rectangle obj1( param.m_x, param.m_x + param.m_width,
-                    param.m_y, param.m_y + param.m_height );
+    Rectangle obj1( param.m_x, param.m_y,
+                    param.m_x + param.m_width, param.m_y + param.m_height );
 
     for ( TPlanePtrVec::const_iterator it = m_colissionObjects.begin();
           it != m_colissionObjects.end(); ++ it)
     {
         const IPlane &object =  *(*it);
 
-        Rectangle obj2( object.GetX(), object.GetX() + object.GetWidth(),
-                        object.GetY(), object.GetY() + object.GetHeight() );
+        Rectangle obj2( object.GetX(), object.GetY(),
+                        object.GetX() + object.GetWidth(),
+                        object.GetY() + object.GetHeight() );
 
         /*
         bool col = param.m_y < object.GetY() + object.GetHeight() ||

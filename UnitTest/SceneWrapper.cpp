@@ -5,10 +5,10 @@ SceneWrapper::SceneWrapper() :
     m_returnNULL(false),
     m_width(0.f),
     m_height(0.f),
-    m_colission(NULL),
     m_outerBoundaryStore(NULL),
-    m_renderParam(NULL),
-    m_tank(NULL)
+    m_colission(NULL),
+    m_tank(NULL),
+    m_renderParam(NULL)
 {
 
 }

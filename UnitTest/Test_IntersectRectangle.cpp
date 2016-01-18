@@ -12,10 +12,11 @@ void Test_IntersectRectangle::TestIntersect()
 {
     Rectangle rec1( 5.f, 5.f, 10.f, 10.f);
     Rectangle rec2( 0.f, 0.f, 4.f, 4.f);
-    Rectangle rec3( 4.f, 4.f, 7.f, 7.f );
+    Rectangle rec3( 3.f, 3.f, 7.f, 7.f );
+    Rectangle rec4( 6.f, 15.f, 10.f, 8.f);
 
     //QVERIFY2( rec1.IsIntersect(rec2) == false, "No intersect" );
     //QVERIFY2( rec1.IsIntersect(rec3) == true, "Intersect" );
     //QVERIFY2( rec2.IsIntersect(rec3) == true, "Intersect" );
-
+    QVERIFY2( rec1.IsIntersect(rec4) == true, "Intersect" );
 }
