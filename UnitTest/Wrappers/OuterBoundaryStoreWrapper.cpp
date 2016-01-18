@@ -8,6 +8,18 @@ OuterBoundaryStoreWrapper::OuterBoundaryStoreWrapper() :
 {
 }
 
+void OuterBoundaryStoreWrapper::Init( const RenderParam &param )
+{
+}
+
+void OuterBoundaryStoreWrapper::Draw()
+{
+}
+
+void OuterBoundaryStoreWrapper::Clear()
+{
+}
+
 float OuterBoundaryStoreWrapper::GetMaxX() const
 {
     return m_maxX;

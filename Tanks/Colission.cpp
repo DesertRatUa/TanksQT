@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <algorithm>
+#include <QtGlobal>
 
 #include "Colission.h"
 #include "MapObjectsStore/IOuterBoundaryStore.h"
@@ -21,7 +22,7 @@ bool Colission::CheckMovement( MovementParams &param ) const
 bool Colission::CheckOuterBoundary( MovementParams &param ) const
 {
     const IOuterBoundaryStore *boundary = m_scene.GetOuterBoundary();
-    assert(boundary);
+    Q_ASSERT(boundary);
 
     bool minx = param.m_x >= boundary->GetMinX();
     bool miny = param.m_y >= boundary->GetMinY();
