@@ -1,8 +1,9 @@
+#include <assert.h>
+
 #include "Tank.h"
 #include "IScene.h"
 #include "IColission.h"
-#include "IOuterBoundaryStore.h"
-#include <assert.h>
+#include "MapObjectsStore/IOuterBoundaryStore.h"
 
 static const float max_step = 10.0f;
 

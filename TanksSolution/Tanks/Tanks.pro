@@ -33,13 +33,13 @@ SOURCES += main.cpp\
     MapObjects/TankRender.cpp \
     MapObjects/Tank.cpp \
     Colission.cpp \
-    MapObjects/OuterBoundaryStore.cpp \
-    MapObjects/EagleStore.cpp \
+    MapObjectsStore/OuterBoundaryStore.cpp \
+    MapObjectsStore/EagleStore.cpp \
     Log.cpp \
     IntersectRectangle.cpp \
     XBoxController/XBoxControllerThread.cpp \
     XBoxController/XBoxController.cpp \
-    MapObjects/BrickStore.cpp \
+    MapObjectsStore/BrickStore.cpp \
     MapObjects/BrickWall.cpp
 
 HEADERS  += Dialog.h \
@@ -60,19 +60,19 @@ HEADERS  += Dialog.h \
     MapObjects/ITank.h \
     Colission.h \
     IColission.h \
-    MapObjects/OuterBoundaryStore.h \
-    MapObjects/IOuterBoundaryStore.h \
+    MapObjectsStore/OuterBoundaryStore.h \
+    MapObjectsStore/IOuterBoundaryStore.h \
     IScene.h \
-    MapObjects/EagleStore.h \
+    MapObjectsStore/EagleStore.h \
     MapObjects/IPlane.h \
     Log.h \
     IntersectRectangle.h \
     XBoxController/XBoxControllerThread.h \
     XBoxController/XBoxController.h \
     XBoxController/XBoxControllerEvent.h \
-    MapObjects/BrickStore.h \
+    MapObjectsStore/BrickStore.h \
     IControlls.h \
-    MapObjects/ISceneObjectsStore.h \
+    MapObjectsStore/ISceneObjectsStore.h \
     MapObjects/BrickWall.h
 
 FORMS    += Dialog.ui
