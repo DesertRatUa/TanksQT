@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     XBoxController/XBoxControllerThread.cpp \
     XBoxController/XBoxController.cpp \
     MapObjectsStore/BrickStore.cpp \
-    MapObjects/BrickWall.cpp
+    MapObjects/BrickWall.cpp \
+    MapObjectsStore/SceneObjectsStore.cpp
 
 HEADERS  += Dialog.h \
     Scene.h \
@@ -73,7 +74,8 @@ HEADERS  += Dialog.h \
     MapObjectsStore/BrickStore.h \
     IControlls.h \
     MapObjectsStore/ISceneObjectsStore.h \
-    MapObjects/BrickWall.h
+    MapObjects/BrickWall.h \
+    MapObjectsStore/SceneObjectsStore.h
 
 FORMS    += Dialog.ui
 

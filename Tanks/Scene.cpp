@@ -92,6 +92,7 @@ Scene::~Scene()
     m_outerBoundary->Clear();
     m_collision->Clear();
     m_eagle->Clear();
+    m_brickStore->Clear();
 
     m_tank.reset(NULL);
 
@@ -206,6 +207,7 @@ void Scene::initializeGL()
     m_outerBoundary->Init( *m_renderParam );
     m_eagle->Init( *m_renderParam );
     m_tank->Init( *m_renderParam );
+    m_brickStore->Init( *m_renderParam );
 
     generateBlocksOfBricks();
 }

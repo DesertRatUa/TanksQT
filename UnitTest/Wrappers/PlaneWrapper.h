@@ -13,6 +13,7 @@ public:
     virtual float GetHeight() const;
     virtual float GetWidth() const;
     virtual std::string GetName() const;
+    virtual void Draw();
 
     float m_x;
     float m_y;

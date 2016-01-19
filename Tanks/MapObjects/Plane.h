@@ -57,7 +57,7 @@ public:
 
     void SetTexture( QOpenGLTexture *texture );
 
-    void Draw();
+    virtual void Draw();
 
 protected:
     void initVertices();

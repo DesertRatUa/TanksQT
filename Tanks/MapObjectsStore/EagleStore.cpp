@@ -2,6 +2,7 @@
 #include "IScene.h"
 #include "IOuterBoundaryStore.h"
 #include "IColission.h"
+#include "MapObjects/Eagle.h"
 
 EagleStore::EagleStore( IScene &scene ) :
     m_scene(scene)
@@ -11,6 +12,8 @@ EagleStore::EagleStore( IScene &scene ) :
 void EagleStore::Init( const RenderParam &param )
 {
     const IOuterBoundaryStore *outerBoundary = m_scene.GetOuterBoundary();
+    if ( !outerBoundary )
+        throw std::runtime_error("OuterBoundaryStore == NULL");
 
     float middle_x = ( m_scene.GetWidth() - Eagle::GetDefaultWidth() ) / 2;
 
@@ -21,20 +24,10 @@ void EagleStore::Init( const RenderParam &param )
 void EagleStore::AddEagle( const std::string &name, const float x, const float y,
                            const RenderParam &param )
 {
-    TEaglePtr eagle( new Eagle( name ,param ) );
+    Eagle* eagle = new Eagle( name ,param );
     eagle->SetX( x );
     eagle->SetY( y );
-    m_eagles.push_back(eagle);
-    m_scene.GetColission()->AddColissionObject(eagle);
-}
-
-void EagleStore::Draw()
-{
-    for ( TEagleVec::iterator it = m_eagles.begin(); it != m_eagles.end(); ++it )
-        (*it)->Draw();
-}
-
-void EagleStore::Clear()
-{
-    m_eagles.clear();
+    TiPlanePtr eaglePtr( eagle );
+    m_objects.push_back( eaglePtr );
+    m_scene.GetColission()->AddColissionObject( eaglePtr );
 }

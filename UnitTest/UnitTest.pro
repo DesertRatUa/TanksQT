@@ -23,7 +23,10 @@ HEADERS += \
     Test_Log.h \
     Wrappers/OuterBoundaryStoreWrapper.h
 
-LIBS += $$PWD/../Build/Tanks/debug/IntersectRectangle.o $$PWD/../Build/Tanks/debug/Colission.o $$PWD/../Build/Tanks/debug/Log.o
+LIBS += $$PWD/../Build/Tanks/debug/IntersectRectangle.o
+LIBS += $$PWD/../Build/Tanks/debug/Colission.o
+LIBS += $$PWD/../Build/Tanks/debug/Log.o
+LIBS += $$PWD/../Build/Tanks/debug/SceneObjectsStore.o
 
 INCLUDEPATH += $$PWD/../Tanks
 

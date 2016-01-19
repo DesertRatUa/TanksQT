@@ -14,6 +14,8 @@ public:
     virtual float GetHeight() const = 0;
     virtual float GetWidth() const = 0;
     virtual std::string GetName() const = 0;
+
+    virtual void Draw() = 0;
 };
 
 typedef std::shared_ptr<IPlane> TiPlanePtr;

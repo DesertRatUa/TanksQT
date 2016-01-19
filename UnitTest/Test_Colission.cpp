@@ -168,7 +168,7 @@ void Test_Colission::TestNull()
     m_scene.m_outerBoundaryStore = NULL;
 
     MovementParams inside( 55.f, 55.f, 10.f, 10.f );
-    QEXPECT_FAIL("","NULL Warriable",Continue);
-    QTRY_VERIFY( m_colission->CheckMovement(inside) == false );
-
+    QVERIFY_EXCEPTION_THROWN( m_colission->CheckMovement(inside), std::exception );
+    QVERIFY_EXCEPTION_THROWN( m_colission->AddColissionObject( TiPlanePtr(NULL) ), std::exception );
+    QVERIFY_EXCEPTION_THROWN( m_colission->RemoveColissionObject( TiPlanePtr(NULL) ), std::exception );
 }

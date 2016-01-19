@@ -26,45 +26,39 @@ void OuterBoundaryStore::Init( const RenderParam &param )
     // Top
     for ( unsigned int i = 0, j = 0; i < count_hor; ++i )
     {
-        TOuterBoundaryPtr outerBoundary(new OuterBoundary( param ));
+        OuterBoundary* outerBoundary = new OuterBoundary( param );
         outerBoundary->SetX( j++ * m_minX );
         outerBoundary->SetY( top_y );
-        m_outerBoundary.push_back( outerBoundary );
+        m_objects.push_back( TiPlanePtr( outerBoundary ) );
     }
 
     //Bottom
 
     for ( unsigned int i = 0, j = 0; i < count_hor; ++i )
     {
-        TOuterBoundaryPtr outerBoundary(new OuterBoundary( param ));
+        OuterBoundary* outerBoundary = new OuterBoundary( param );
         outerBoundary->SetX( j++ * m_minX );
         outerBoundary->SetY( m_maxY );
-        m_outerBoundary.push_back( outerBoundary );
+        m_objects.push_back( TiPlanePtr( outerBoundary ) );
     }
 
     // Left
     for ( unsigned int i = 1, j = 1; i < count_ver; ++i )
     {
-        TOuterBoundaryPtr outerBoundary(new OuterBoundary( param ));
+        OuterBoundary* outerBoundary = new OuterBoundary( param );
         outerBoundary->SetX( left_x );
         outerBoundary->SetY( j++ * m_minY );
-        m_outerBoundary.push_back( outerBoundary );
+        m_objects.push_back( TiPlanePtr( outerBoundary ) );
     }
 
     // Right
     for ( unsigned int i = 1, j = 1; i < count_ver; ++i )
     {
-        TOuterBoundaryPtr outerBoundary(new OuterBoundary( param ));
+        OuterBoundary* outerBoundary = new OuterBoundary( param );
         outerBoundary->SetX( m_maxX );
         outerBoundary->SetY( j++ * m_minY );
-        m_outerBoundary.push_back( outerBoundary );
+        m_objects.push_back( TiPlanePtr( outerBoundary ) );
     }
-}
-
-void OuterBoundaryStore::Draw()
-{
-    for ( TOuterBoundaryVec::iterator it = m_outerBoundary.begin(); it != m_outerBoundary.end(); ++it )
-        (*it)->Draw();
 }
 
 float OuterBoundaryStore::GetMaxX() const
@@ -85,9 +79,4 @@ float OuterBoundaryStore::GetMinX() const
 float OuterBoundaryStore::GetMinY() const
 {
     return m_minY;
-}
-
-void OuterBoundaryStore::Clear()
-{
-    m_outerBoundary.clear();
 }
