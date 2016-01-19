@@ -1,17 +1,15 @@
 #ifndef BRICKSTORE_H
 #define BRICKSTORE_H
-#include "ISceneObjectsStore.h"
+#include "SceneObjectsStore.h"
 
 class IScene;
 
-class BrickStore : public ISceneObjectsStore
+class BrickStore : public SceneObjectsStore
 {
 public:
     BrickStore( IScene &scene );
 
     virtual void Init( const RenderParam &param );
-    virtual void Draw();
-    virtual void Clear();
 
 protected:
     IScene &m_scene;

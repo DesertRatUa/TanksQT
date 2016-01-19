@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <algorithm>
 #include <QtGlobal>
+#include <exception>
 
 #include "Colission.h"
 #include "MapObjectsStore/IOuterBoundaryStore.h"
@@ -22,7 +23,8 @@ bool Colission::CheckMovement( MovementParams &param ) const
 bool Colission::CheckOuterBoundary( MovementParams &param ) const
 {
     const IOuterBoundaryStore *boundary = m_scene.GetOuterBoundary();
-    Q_ASSERT(boundary);
+    if (!boundary)
+        throw std::runtime_error("OuterBoundaryStore == NULL");
 
     bool minx = param.m_x >= boundary->GetMinX();
     bool miny = param.m_y >= boundary->GetMinY();
@@ -53,7 +55,9 @@ bool Colission::CheckColissionObjects( MovementParams &param ) const
 
 void Colission::AddColissionObject( const TiPlanePtr &plane )
 {
-    assert(plane.get());
+    if ( !plane.get() )
+        throw std::runtime_error("plane == NULL");
+
     TPlanePtrVec::iterator it = std::find(
                 m_colissionObjects.begin(), m_colissionObjects.end(), plane );
 
@@ -70,7 +74,9 @@ void Colission::AddColissionObject( const TiPlanePtr &plane )
 
 void Colission::RemoveColissionObject( const TiPlanePtr &plane )
 {
-    assert(plane.get());
+    if ( !plane.get() )
+        throw std::runtime_error("plane == NULL");
+
     TPlanePtrVec::iterator it = std::find(
                 m_colissionObjects.begin(), m_colissionObjects.end(), plane );
     if (it != m_colissionObjects.end())

@@ -1,8 +1,8 @@
 #ifndef IOUTERBOUNDARYSTORE
 #define IOUTERBOUNDARYSTORE
-#include "ISceneObjectsStore.h"
+#include "SceneObjectsStore.h"
 
-class IOuterBoundaryStore : public ISceneObjectsStore
+class IOuterBoundaryStore : public SceneObjectsStore
 {
 public:
     virtual ~IOuterBoundaryStore() {}

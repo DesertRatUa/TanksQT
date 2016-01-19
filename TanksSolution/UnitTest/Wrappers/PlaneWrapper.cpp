@@ -32,3 +32,8 @@ std::string PlaneWrapper::GetName() const
 {
     return m_name;
 }
+
+void PlaneWrapper::Draw()
+{
+
+}
