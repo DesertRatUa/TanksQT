@@ -75,7 +75,8 @@ HEADERS  += Dialog.h \
     IControlls.h \
     MapObjectsStore/ISceneObjectsStore.h \
     MapObjects/BrickWall.h \
-    MapObjectsStore/SceneObjectsStore.h
+    MapObjectsStore/SceneObjectsStore.h \
+    MapObjects/IBrickWall.h
 
 FORMS    += Dialog.ui
 

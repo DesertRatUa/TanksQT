@@ -22,24 +22,24 @@
 #ifndef BLOCKOFBRICKWALL_H
 #define BLOCKOFBRICKWALL_H
 
-#include "Plane.h"
+#include "IBrickWall.h"
 #include <memory>
 
-class BrickWall : public Plane
+class BrickWall : public IBrickWall
 {
 public:
     BrickWall( const RenderParam &param );
     ~BrickWall();
 
-    int id() const;
+    unsigned long GetId() const;
+    virtual std::string GetName() const;
 
 protected:
     std::shared_ptr<QOpenGLTexture> m_texture;
 
-
     int m_health;
-    int m_id;
-    static int m_nextId;
+    unsigned long m_id;
+    static unsigned long m_nextId;
 };
 
 #endif // BLOCKOFBRICKWALL_H

@@ -13,11 +13,58 @@ void BrickStore::Init( const RenderParam &param ) throw ( std::runtime_error )
     if (!colission)
         throw std::runtime_error("Colission == NULL");
 
-    BrickWall *wall = new BrickWall( param );
-    wall->SetX(110.f);
-    wall->SetY(110.f);
+    for ( unsigned i = 0; i < 20; ++i )
+    {
+        TiBrickWallPtr wall = CreateBrickWall( param );
+        wall->SetX(110.f + i * wall->GetWidth());
+        wall->SetY(210.f);
 
-    TiPlanePtr wallPtr(wall);
-    m_objects.push_back( wallPtr );
-    colission->AddColissionObject( wallPtr );
+        m_objects.push_back( wall );
+        colission->AddColissionObject( wall );
+    }
+
+    for ( unsigned i = 1; i < 20; ++i )
+    {
+        TiBrickWallPtr wall = CreateBrickWall( param );
+        wall->SetX(110.f );
+        wall->SetY(210.f + i * wall->GetHeight());
+
+        m_objects.push_back( wall );
+        colission->AddColissionObject( wall );
+    }
+
+    for ( unsigned i = 1; i < 9; ++i )
+    {
+        TiBrickWallPtr wall = CreateBrickWall( param );
+        wall->SetX(110.f + wall->GetHeight() * 5 );
+        wall->SetY(210.f + i * wall->GetHeight());
+
+        m_objects.push_back( wall );
+        colission->AddColissionObject( wall );
+    }
+
+    for ( unsigned i = 11; i < 20; ++i )
+    {
+        TiBrickWallPtr wall = CreateBrickWall( param );
+        wall->SetX(110.f + wall->GetHeight() * 5 );
+        wall->SetY(210.f + i * wall->GetHeight());
+
+        m_objects.push_back( wall );
+        colission->AddColissionObject( wall );
+    }
+
+    for ( unsigned i = 0; i < 20; ++i )
+    {
+        TiBrickWallPtr wall = CreateBrickWall( param );
+        wall->SetX(110.f + i * wall->GetWidth());
+        wall->SetY(210.f + 19 * wall->GetHeight());
+
+        m_objects.push_back( wall );
+        colission->AddColissionObject( wall );
+    }
+}
+
+TiBrickWallPtr BrickStore::CreateBrickWall( const RenderParam &param )
+{
+    return TiBrickWallPtr( new BrickWall( param ) );
 }
