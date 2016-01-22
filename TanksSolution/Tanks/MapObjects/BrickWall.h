@@ -25,11 +25,11 @@
 #include "Plane.h"
 #include <memory>
 
-class BlockOfBrickWall : public Plane
+class BrickWall : public Plane
 {
 public:
-    BlockOfBrickWall( const RenderParam &param );
-    ~BlockOfBrickWall();
+    BrickWall( const RenderParam &param );
+    ~BrickWall();
 
     int id() const;
 

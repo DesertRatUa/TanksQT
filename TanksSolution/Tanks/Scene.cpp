@@ -86,9 +86,6 @@ Scene::~Scene()
     for ( auto it = m_tankExplosions.begin(); it != m_tankExplosions.end(); ++it )
         delete it->second;
 
-    for ( auto it = m_blocksOfBrick.begin(); it != m_blocksOfBrick.end(); ++it )
-        delete it->second;
-
     m_outerBoundary->Clear();
     m_collision->Clear();
     m_eagle->Clear();
@@ -244,6 +241,7 @@ void Scene::paintGL()
     m_eagle->Draw();
     m_outerBoundary->Draw();
     m_tank->Draw();
+    m_brickStore->Draw();
     m_program.release();
 }
 

@@ -13,14 +13,14 @@ Colission::Colission( const IScene &scene ) : m_scene(scene)
 {
 }
 
-bool Colission::CheckMovement( MovementParams &param ) const
+bool Colission::CheckMovement( MovementParams &param ) const throw (std::runtime_error)
 {
     bool move = CheckOuterBoundary(param);
     bool object = CheckColissionObjects(param);
     return move && object;
 }
 
-bool Colission::CheckOuterBoundary( MovementParams &param ) const
+bool Colission::CheckOuterBoundary( MovementParams &param ) const throw (std::runtime_error)
 {
     const IOuterBoundaryStore *boundary = m_scene.GetOuterBoundary();
     if (!boundary)
@@ -53,7 +53,7 @@ bool Colission::CheckColissionObjects( MovementParams &param ) const
     return true;
 }
 
-void Colission::AddColissionObject( const TiPlanePtr &plane )
+void Colission::AddColissionObject( const TiPlanePtr &plane ) throw (std::runtime_error)
 {
     if ( !plane.get() )
         throw std::runtime_error("plane == NULL");
@@ -72,7 +72,7 @@ void Colission::AddColissionObject( const TiPlanePtr &plane )
     }
 }
 
-void Colission::RemoveColissionObject( const TiPlanePtr &plane )
+void Colission::RemoveColissionObject( const TiPlanePtr &plane ) throw (std::runtime_error)
 {
     if ( !plane.get() )
         throw std::runtime_error("plane == NULL");
