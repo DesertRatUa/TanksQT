@@ -19,39 +19,20 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "BrickWall.h"
-#include "Log.h"
+#ifndef IBRICKWALL_H
+#define IBRICKWALL_H
 
-unsigned long BrickWall::m_nextId = 0;
+#include "Plane.h"
 
-BrickWall::BrickWall( const RenderParam &param ) :
-    IBrickWall( param )
+class IBrickWall : public Plane
 {
-    m_id = m_nextId++;
+public:
+    IBrickWall( const RenderParam &param ) : Plane(param) {}
+    virtual ~IBrickWall() {}
 
-    QImage image( ":/Textures/TankSpriteSheet.png" );
-    QImage frame = image.copy( 256, 0, 15, 15 );
-    frame = frame.mirrored( false, true );
-    m_texture.reset( new QOpenGLTexture( frame) );
-    SetTexture( m_texture.get() );
-    m_name = "BrickWall";
+    virtual unsigned long GetId() const = 0;
+};
 
-    SetHeight( 50.0f );
-    SetWidth( 50.0f );
-}
+typedef std::shared_ptr<IBrickWall> TiBrickWallPtr;
 
-BrickWall::~BrickWall()
-{
-    if (m_texture.get())
-        m_texture->destroy();
-}
-
-unsigned long BrickWall::GetId() const
-{
-    return m_id;
-}
-
-std::string BrickWall::GetName() const
-{
-    return Plane::GetName() + Log::IntToStr(GetId());
-}
+#endif // BLOCKOFBRICKWALL_H

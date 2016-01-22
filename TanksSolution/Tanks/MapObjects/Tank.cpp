@@ -16,9 +16,6 @@ void Tank::Init( RenderParam &param )
 {
     m_render.reset( new TankRender( param ) );
 
-    m_render->SetHeight( 50.0f );
-    m_render->SetWidth( 50.0f );
-
     const IOuterBoundaryStore *outerBoundary = m_scene.GetOuterBoundary();
     m_render->SetX( outerBoundary->GetMaxX() / 2 );
     m_render->SetY( outerBoundary->GetMaxY() / 2 );
