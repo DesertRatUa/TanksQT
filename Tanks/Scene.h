@@ -100,7 +100,6 @@ private:
     std::map<int, Projectile*> m_projectiles;
     std::map<int, ExplosionOfProjectile*> m_projectileExplosions;
     std::map<int, ExplosionOfTank*> m_tankExplosions;
-    std::map<int, BlockOfBrickWall*> m_blocksOfBrick;  
 };
 
 #endif // SCENE_H

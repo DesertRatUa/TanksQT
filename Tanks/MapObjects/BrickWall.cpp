@@ -21,9 +21,9 @@
 
 #include "BrickWall.h"
 
-int BlockOfBrickWall::m_nextId = 0;
+int BrickWall::m_nextId = 0;
 
-BlockOfBrickWall::BlockOfBrickWall( const RenderParam &param ) :
+BrickWall::BrickWall( const RenderParam &param ) :
     Plane( param )
 {
     m_id = m_nextId++;
@@ -38,13 +38,13 @@ BlockOfBrickWall::BlockOfBrickWall( const RenderParam &param ) :
     SetWidth( 50.0f );
 }
 
-BlockOfBrickWall::~BlockOfBrickWall()
+BrickWall::~BrickWall()
 {
     if (m_texture.get())
         m_texture->destroy();
 }
 
-int BlockOfBrickWall::id() const
+int BrickWall::id() const
 {
     return m_id;
 }

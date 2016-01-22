@@ -9,7 +9,7 @@ class BrickStore : public SceneObjectsStore
 public:
     BrickStore( IScene &scene );
 
-    virtual void Init( const RenderParam &param );
+    virtual void Init( const RenderParam &param ) throw (std::runtime_error);
 
 protected:
     IScene &m_scene;
