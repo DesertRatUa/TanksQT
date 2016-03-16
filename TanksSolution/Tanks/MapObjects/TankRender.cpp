@@ -27,6 +27,9 @@ TankRender::TankRender( const RenderParam &param ) :
 {
     genTextures();
     SetDirection( TankRender::Up );
+
+    SetHeight( 50.0f );
+    SetWidth( 50.0f );
 }
 
 TankRender::~TankRender()
@@ -63,22 +66,30 @@ void TankRender::genTextures()
     std::vector<QImage> frames;
     for ( int i = 0; i < 8; ++i )
     {
-        QImage frame = image.copy( i * frameWidth, 0, frameWidth, frameHeight );
-        QMatrix matrix;
-        matrix.rotate( 180.0 );
-        frame = frame.transformed( matrix );
-        frame = frame.mirrored( true, false );
+        unsigned x = i * frameWidth;
+        unsigned y = 0;
+        unsigned width = frameWidth;
+        unsigned height = frameHeight;
+
+        QImage frame = image.copy( x, y, width, height );
+        qDebug("%u, %u, %u, %u", x, y, width, height );
+        //QMatrix matrix;
+        //matrix.rotate( 180.0 );
+        //frame = frame.transformed( matrix );
+        //frame = frame.mirrored( true, false );
+        frame = frame.scaledToHeight(frameHeight);
+        frame = frame.scaledToWidth(frameWidth);
         frames.push_back( frame );
     }
 
-    m_upTextures.push_back( new QOpenGLTexture( frames[0] ) );
-    m_upTextures.push_back( new QOpenGLTexture( frames[1] ) );
+    m_upTextures.push_back( new QOpenGLTexture( frames[4] ) );
+    m_upTextures.push_back( new QOpenGLTexture( frames[5] ) );
 
     m_leftTextures.push_back( new QOpenGLTexture( frames[2] ) );
     m_leftTextures.push_back( new QOpenGLTexture( frames[3] ) );
 
-    m_downTextures.push_back( new QOpenGLTexture( frames[4] ) );
-    m_downTextures.push_back( new QOpenGLTexture( frames[5] ) );
+    m_downTextures.push_back( new QOpenGLTexture( frames[0] ) );
+    m_downTextures.push_back( new QOpenGLTexture( frames[1] ) );
 
     m_rightTextures.push_back( new QOpenGLTexture( frames[6] ) );
     m_rightTextures.push_back( new QOpenGLTexture( frames[7] ) );

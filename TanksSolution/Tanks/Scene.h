@@ -73,7 +73,6 @@ private:
     void showProjectileExplosions();
     void addProjectileExplosion( float x0, float y0 );
     void addTankExplosion( float x0, float y0 );
-    void generateBlocksOfBricks();
 
     QOpenGLShaderProgram m_program;
     QTimer m_projectileTimer;
