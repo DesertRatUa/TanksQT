@@ -205,8 +205,6 @@ void Scene::initializeGL()
     m_eagle->Init( *m_renderParam );
     m_tank->Init( *m_renderParam );
     m_brickStore->Init( *m_renderParam );
-
-    generateBlocksOfBricks();
 }
 
 void Scene::paintGL()
@@ -279,49 +277,6 @@ void Scene::addTankExplosion( float x0, float y0 )
     explosion->start();
 
     update();
-}
-
-void Scene::generateBlocksOfBricks()
-{
-    /*
-    // Protection for the eagle
-    BlockOfBrickWall *blockOfBrick;
-
-    // Right
-    blockOfBrick = new BlockOfBrickWall( RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ) );
-    blockOfBrick->SetX( m_eagle->x0() - blockOfBrick->GetWidth() );
-    blockOfBrick->SetY( m_eagle->GetY() );
-    m_blocksOfBrick[ blockOfBrick->id() ] = blockOfBrick;
-
-    // Top Left
-    blockOfBrick = new BlockOfBrickWall( RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ) );
-    blockOfBrick->SetX( m_eagle->x0() - blockOfBrick->GetWidth() );
-    blockOfBrick->SetY( m_eagle->GetY() - blockOfBrick->GetHeight() );
-    m_blocksOfBrick[ blockOfBrick->id() ] = blockOfBrick;
-
-    // Top Center
-    blockOfBrick = new BlockOfBrickWall( RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ) );
-    blockOfBrick->SetX( m_eagle->x0() );
-    blockOfBrick->SetY( m_eagle->GetY() - blockOfBrick->GetHeight() );
-    m_blocksOfBrick[ blockOfBrick->id() ] = blockOfBrick;
-
-    // Top Right
-    blockOfBrick = new BlockOfBrickWall( RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ) );
-    blockOfBrick->SetX( m_eagle->x0() + blockOfBrick->GetWidth() );
-    blockOfBrick->SetY( m_eagle->GetY() - blockOfBrick->GetHeight() );
-    m_blocksOfBrick[ blockOfBrick->id() ] = blockOfBrick;
-
-    // Right
-    blockOfBrick = new BlockOfBrickWall( RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ) );
-    blockOfBrick->SetX( m_eagle->x0() + blockOfBrick->GetWidth() );
-    blockOfBrick->SetY( m_eagle->GetY() );
-    m_blocksOfBrick[ blockOfBrick->id() ] = blockOfBrick;
-
-    blockOfBrick = new BlockOfBrickWall( RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ) );
-    blockOfBrick->SetX( 200.0f );
-    blockOfBrick->SetY( 200.0f );
-    m_blocksOfBrick[ blockOfBrick->id() ] = blockOfBrick;
-    */
 }
 
 void Scene::slotShowProjectileExplosion( int id, bool show )
