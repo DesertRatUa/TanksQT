@@ -34,6 +34,7 @@
 #include "MapObjectsStore/EagleStore.h"
 #include "Controlls.h"
 #include "MapObjectsStore/BrickStore.h"
+#include "MapObjectsStore/ProjectileStore.h"
 
 
 static const float step = 10.0f;
@@ -67,6 +68,7 @@ void Scene::CreateDependencys()
     m_brickStore.reset( new BrickStore(*this) );
     m_controls.reset( new Controlls( *this ) );
     m_xboxController_thread.reset( new XBoxControllerThread() );
+    m_projectileStore.reset( new ProjectileStore() );
 
     qRegisterMetaType<XBoxControllerEvent>("XBoxControllerEvent");
     connect( m_xboxController_thread.get(), SIGNAL( signalControllerKeyPress( XBoxControllerEvent ) ),
@@ -76,9 +78,6 @@ void Scene::CreateDependencys()
 Scene::~Scene()
 {
     makeCurrent();
-
-    for ( auto it = m_projectiles.begin(); it != m_projectiles.end(); ++it )
-        delete it->second;
 
     for ( auto it = m_projectileExplosions.begin(); it != m_projectileExplosions.end(); ++it )
         delete it->second;
@@ -90,85 +89,11 @@ Scene::~Scene()
     m_collision->Clear();
     m_eagle->Clear();
     m_brickStore->Clear();
+    m_projectileStore->Clear();
 
     m_tank.reset(NULL);
 
     doneCurrent();
-}
-
-void Scene::slotOfMovingOfProjectiles()
-{
-    if ( m_projectiles.size() == 0 )
-        return;
-
-    const float step = 10.0f;
-
-    //typedef std::map<int, Projectile*> TMap;
-    //TMap::iterator iterOfProjectile = m_projectiles.begin();
-    auto iterOfProjectile = m_projectiles.begin();
-
-//    for ( auto iterOfProjectile = m_projectiles.begin(); iterOfProjectile != m_projectiles.end(); ++iterOfProjectile )
-    while ( iterOfProjectile != m_projectiles.end() )
-    {
-        Projectile *projectile = iterOfProjectile->second;
-
-        bool doDel = false;
-
-        switch ( projectile->direction() ) {
-            case Projectile::Up:
-                projectile->SetY( projectile->GetY() - step );
-                doDel = projectile->GetY() <= m_outerBoundary->GetMinY();
-                break;
-            case Projectile::Left:
-                projectile->SetX( projectile->GetX() - step );
-                doDel = projectile->GetX() < m_outerBoundary->GetMinX();
-                break;
-            case Projectile::Down:
-                projectile->SetY( projectile->GetY() + step );
-                doDel = projectile->GetY() >= m_outerBoundary->GetMaxY();
-                break;
-            case Projectile::Right:
-                projectile->SetX( projectile->GetX() + step );
-                doDel = projectile->GetX() > m_outerBoundary->GetMaxX();
-                break;
-        }
-
-        if ( doDel )
-        {
-            float x0 = projectile->GetX();
-            float y0 = projectile->GetY();
-
-            switch ( projectile->direction() ) {
-                case Projectile::Up:
-                    x0 -= 32.0f;
-                    break;
-                case Projectile::Left:
-                    y0 -= 32.0f;
-                    break;
-                case Projectile::Down:
-                    x0 -= 32.0f;
-                    y0 -= 64.0f;
-                    break;
-                case Projectile::Right:
-                    x0 -= 64.0f;
-                    y0 -= 32.0f;
-                    break;
-            }
-
-            delete projectile;
-            m_projectiles.erase( iterOfProjectile++ );
-
-            addProjectileExplosion( x0, y0 );
-
-//            SoundOfProjectileExplosion *sound = new SoundOfProjectileExplosion;
-//            sound->setAutoDelete( true );
-//            QThreadPool::globalInstance()->start( sound );
-        }
-        else
-            iterOfProjectile++;
-    }
-
-    update();
 }
 
 void Scene::initializeGL()
@@ -205,6 +130,7 @@ void Scene::initializeGL()
     m_eagle->Init( *m_renderParam );
     m_tank->Init( *m_renderParam );
     m_brickStore->Init( *m_renderParam );
+    m_projectileStore->Init( *m_renderParam );
 }
 
 void Scene::paintGL()
@@ -240,6 +166,7 @@ void Scene::paintGL()
     m_outerBoundary->Draw();
     m_tank->Draw();
     m_brickStore->Draw();
+    m_projectileStore->Clear();
     m_program.release();
 }
 

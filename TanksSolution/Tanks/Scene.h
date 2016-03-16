@@ -30,14 +30,13 @@
 #include <QOpenGLFunctions>
 #include "MapObjects/ITank.h"
 #include "Ice.h"
-#include "Projectile.h"
 #include "ExplosionOfProjectile.h"
 #include "ExplosionOfTank.h"
-#include "MapObjectsStore//IOuterBoundaryStore.h"
 #include "MapObjects/BrickWall.h"
 #include "IControlls.h"
 #include "IColission.h"
 #include "IScene.h"
+#include "MapObjectsStore/IOuterBoundaryStore.h"
 #include "MapObjectsStore/ISceneObjectsStore.h"
 
 
@@ -59,7 +58,6 @@ public:
     virtual void Update();
 
 private slots:
-    void slotOfMovingOfProjectiles();
     void slotShowProjectileExplosion( int id, bool show );
     void slotShowTankExplosion( int id, bool show );
 
@@ -83,6 +81,7 @@ private:
     std::unique_ptr<IControlls> m_controls;
     std::unique_ptr<ISceneObjectsStore> m_eagle;
     std::unique_ptr<ISceneObjectsStore> m_brickStore;
+    std::unique_ptr<ISceneObjectsStore> m_projectileStore;
     std::unique_ptr<QThread> m_xboxController_thread;
 
     std::unique_ptr<RenderParam> m_renderParam;
@@ -96,7 +95,6 @@ private:
     const float m_canvasHeight;
     const float m_canvasWidth;
 
-    std::map<int, Projectile*> m_projectiles;
     std::map<int, ExplosionOfProjectile*> m_projectileExplosions;
     std::map<int, ExplosionOfTank*> m_tankExplosions;
 };

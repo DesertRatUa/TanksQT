@@ -21,7 +21,6 @@ SOURCES += main.cpp\
     Scene.cpp \
     Ice.cpp \
     MapObjects/Plane.cpp \
-    Projectile.cpp \
     SoundOfShot.cpp \
     SoundOfTankExplosion.cpp \
     SoundOfProjectileExplosion.cpp \
@@ -42,13 +41,13 @@ SOURCES += main.cpp\
     MapObjectsStore/BrickStore.cpp \
     MapObjects/BrickWall.cpp \
     MapObjectsStore/SceneObjectsStore.cpp \
-    MapObjectsStore/ProjectileStore.cpp
+    MapObjectsStore/ProjectileStore.cpp \
+    MapObjects/Projectile.cpp
 
 HEADERS  += Dialog.h \
     Scene.h \
     Ice.h \
     MapObjects/Plane.h \
-    Projectile.h \
     SoundOfShot.h \
     SoundOfTankExplosion.h \
     SoundOfProjectileExplosion.h \
@@ -78,7 +77,9 @@ HEADERS  += Dialog.h \
     MapObjects/BrickWall.h \
     MapObjectsStore/SceneObjectsStore.h \
     MapObjects/IBrickWall.h \
-    MapObjectsStore/ProjectileStore.h
+    MapObjectsStore/ProjectileStore.h \
+    MapObjects/IProjectile.h \
+    MapObjects/Projectile.h
 
 FORMS    += Dialog.ui
 
