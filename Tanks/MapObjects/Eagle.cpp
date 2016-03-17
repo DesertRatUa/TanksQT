@@ -10,8 +10,7 @@ Eagle::Eagle( const std::string &name , const RenderParam &param ) :
     QImage image( ":/Textures/TankSpriteSheet.png" );
     QImage frame = image.copy( 304, 32, 15, 15 );
     frame = frame.mirrored( false, true );
-    m_texture.reset( new QOpenGLTexture( frame ) );
-    SetTexture( m_texture.get() );
+    SetTexture( new QOpenGLTexture( frame ) );
 
     SetHeight( HEIGHT );
     SetWidth( WIDTH );
@@ -21,8 +20,6 @@ Eagle::Eagle( const std::string &name , const RenderParam &param ) :
 
 Eagle::~Eagle()
 {
-    if (m_texture.get())
-        m_texture->destroy();
 }
 
 float Eagle::GetDefaultWidth()

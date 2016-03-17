@@ -35,8 +35,6 @@ public:
     virtual std::string GetName() const;
 
 protected:
-    std::shared_ptr<QOpenGLTexture> m_texture;
-
     int m_health;
     unsigned long m_id;
     static unsigned long m_nextId;

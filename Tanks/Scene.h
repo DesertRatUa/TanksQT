@@ -38,6 +38,7 @@
 #include "IScene.h"
 #include "MapObjectsStore/IOuterBoundaryStore.h"
 #include "MapObjectsStore/ISceneObjectsStore.h"
+#include "MapObjectsStore/ITanksStorage.h"
 
 
 class Scene : public QOpenGLWidget, protected QOpenGLFunctions, public IScene
@@ -77,11 +78,11 @@ private:
 
     std::unique_ptr<IColission> m_collision;
     std::unique_ptr<IOuterBoundaryStore> m_outerBoundary;
-    std::unique_ptr<ITank> m_tank;
     std::unique_ptr<IControlls> m_controls;
-    std::unique_ptr<ISceneObjectsStore> m_eagle;
+    std::unique_ptr<ISceneObjectsStore> m_eagleStore;
     std::unique_ptr<ISceneObjectsStore> m_brickStore;
     std::unique_ptr<ISceneObjectsStore> m_projectileStore;
+    std::unique_ptr<ITanksStorage> m_tankStore;
     std::unique_ptr<QThread> m_xboxController_thread;
 
     std::unique_ptr<RenderParam> m_renderParam;
@@ -97,6 +98,9 @@ private:
 
     std::map<int, ExplosionOfProjectile*> m_projectileExplosions;
     std::map<int, ExplosionOfTank*> m_tankExplosions;
+
+    typedef std::vector<ISceneObjectsStore*> RenderStorages;
+    RenderStorages m_renderStorages;
 };
 
 #endif // SCENE_H

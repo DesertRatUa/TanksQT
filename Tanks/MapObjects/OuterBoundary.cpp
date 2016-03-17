@@ -9,8 +9,7 @@ OuterBoundary::OuterBoundary( const RenderParam &param ) :
     QImage image( ":/Textures/TankSpriteSheet.png" );
     QImage frame = image.copy( 256, 16, 15, 15 );
     frame = frame.mirrored( false, true );
-    m_texture.reset( new QOpenGLTexture( frame ) );
-    SetTexture( m_texture.get() );
+    SetTexture( new QOpenGLTexture( frame ) );
 
     SetHeight( height );
     SetWidth( width );
@@ -18,8 +17,6 @@ OuterBoundary::OuterBoundary( const RenderParam &param ) :
 
 OuterBoundary::~OuterBoundary()
 {
-    if (m_texture.get())
-        m_texture->destroy();
 }
 
 float OuterBoundary::GetDefaultWidth()

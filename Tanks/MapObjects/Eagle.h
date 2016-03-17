@@ -12,9 +12,6 @@ public:
 
     static float GetDefaultWidth();
     static float GetDefaultHeight();
-
-protected:
-    std::shared_ptr<QOpenGLTexture> m_texture;
 };
 
 #endif // EAGLE_H

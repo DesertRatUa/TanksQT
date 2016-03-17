@@ -45,11 +45,14 @@ Plane::Plane( const RenderParam &param ) :
 
 Plane::~Plane()
 {
+    if (m_texture.get())
+        m_texture->destroy();
 }
 
 void Plane::Draw()
 {
-    m_texture->bind();
+    if (m_texture.get())
+        m_texture->bind();
 
     m_renderParam.m_program->setAttributeArray( m_renderParam.m_vertexAttr, m_vertices.data(), 3 );
     m_renderParam.m_program->setAttributeArray( m_renderParam.m_textureAttr, m_textureCoords.data(), 2 );
@@ -151,6 +154,11 @@ void Plane::initTextureCoords()
 }
 
 void Plane::SetTexture( QOpenGLTexture *texture )
+{
+    m_texture.reset(texture);
+}
+
+void Plane::SetTexture( TexturePtr &texture )
 {
     m_texture = texture;
 }
