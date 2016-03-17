@@ -44,7 +44,7 @@ class Plane : protected QOpenGLFunctions, public IPlane
 {
 public:
     Plane( const RenderParam &param );
-    virtual ~Plane() = 0;
+    virtual ~Plane();
 
     virtual float GetX() const;
     virtual float GetY() const;

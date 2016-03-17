@@ -9,7 +9,7 @@
 class SceneObjectsStore : public ISceneObjectsStore
 {
 public:
-    SceneObjectsStore();
+    virtual ~SceneObjectsStore() {}
 
     virtual void Init( const RenderParam &param ) = 0;
     virtual void Draw();

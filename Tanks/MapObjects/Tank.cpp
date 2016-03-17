@@ -4,12 +4,14 @@
 #include "IScene.h"
 #include "IColission.h"
 #include "MapObjectsStore/IOuterBoundaryStore.h"
+#include "MapObjectsStore/IProjectileStore.h"
 
 static const float max_step = 10.0f;
 
 Tank::Tank( const RenderParam &param, IScene &scene ) :
-    m_scene( scene ), ITank(param)
+    ITank(param), m_scene( scene )
 {
+    m_name = "Tank";
 }
 
 void Tank::MoveUp()
@@ -18,6 +20,7 @@ void Tank::MoveUp()
     if (step > 0)
         SetY( GetY() - step );
     SetDirection( TankRender::Up );
+    m_scene.Update();
 }
 
 void Tank::MoveDown()
@@ -26,6 +29,7 @@ void Tank::MoveDown()
     if (step > 0)
         SetY( GetY() + step );
     SetDirection( TankRender::Down );
+    m_scene.Update();
 }
 
 void Tank::MoveLeft()
@@ -34,6 +38,7 @@ void Tank::MoveLeft()
     if ( step > 0 )
         SetX( GetX() - step );
     SetDirection( TankRender::Left );
+    m_scene.Update();
 }
 
 void Tank::MoveRight()
@@ -42,6 +47,7 @@ void Tank::MoveRight()
     if ( step > 0 )
         SetX( GetX() + step );
     SetDirection( TankRender::Right );
+    m_scene.Update();
 }
 
 float Tank::CalculateStep( const TankRender::Direction direction ) const
@@ -78,3 +84,9 @@ float Tank::CalculateStep( const TankRender::Direction direction ) const
     while (!colission->CheckMovement(param));
     return step;
  }
+
+void Tank::Shoot()
+{
+    m_scene.GetProjectileStore()->CreateProjectile(GetX(), GetY());
+    m_scene.Update();
+}

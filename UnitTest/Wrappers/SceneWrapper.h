@@ -14,6 +14,7 @@ public:
     virtual IColission* GetColission();
     virtual ITank* GetTank();
     virtual RenderParam* GetRenderParam();
+    virtual IProjectileStore* GetProjectileStore();
 
     virtual void Update();
 

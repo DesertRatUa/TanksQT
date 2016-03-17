@@ -20,6 +20,7 @@
 */
 
 #include "Plane.h"
+#include "Log.h"
 
 RenderParam::RenderParam(QOpenGLShaderProgram *program, int vertexAttr, int textureAttr, int textureUniform) :
     m_program(program),

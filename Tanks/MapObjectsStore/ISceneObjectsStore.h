@@ -1,6 +1,8 @@
 #ifndef ISCENEOBJECTSSTORE
 #define ISCENEOBJECTSSTORE
 
+#include "memory"
+
 struct RenderParam;
 
 class ISceneObjectsStore
@@ -12,6 +14,8 @@ public:
     virtual void Draw() = 0;
     virtual void Clear() = 0;
 };
+
+typedef std::shared_ptr<ISceneObjectsStore> TiSceneObjectsStorePtr;
 
 #endif // IEAGLESTORE
 

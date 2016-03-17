@@ -33,7 +33,7 @@ class TankRender : public QObject, public Plane
 
 public:
     TankRender( const RenderParam &param );
-    ~TankRender();
+    virtual ~TankRender();
 
     enum Direction { Up, Down, Left, Right };
 

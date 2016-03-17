@@ -28,6 +28,7 @@ protected:
     };
 
     void ProcessMovement(const Movement move);
+    void ProcessShoot();
 
     IScene &m_scene;
 };

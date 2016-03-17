@@ -30,9 +30,10 @@
 #include "XBoxController/XBoxControllerThread.h"
 #include "Colission.h"
 #include "Controlls.h"
+#include "RenderObjectsStore.h"
 #include "MapObjectsStore/BrickStore.h"
 #include "MapObjectsStore/ProjectileStore.h"
-#include "MapObjectsStore/TanksStorage.h"
+#include "MapObjectsStore/TankStore.h"
 #include "MapObjectsStore/EagleStore.h"
 #include "MapObjectsStore/OuterBoundaryStore.h"
 
@@ -51,27 +52,7 @@ Scene::Scene( QWidget *parent ) :
 
     setFocusPolicy( Qt::StrongFocus );
 
-    connect( &m_projectileTimer, SIGNAL( timeout() ),
-             this, SLOT( slotOfMovingOfProjectiles() ) );
-
-
     m_xboxController_thread->start();
-}
-
-void Scene::CreateDependencys()
-{
-    m_collision.reset( new Colission( *this ) );
-    m_outerBoundary.reset( new OuterBoundaryStore( *this ) );
-    m_eagleStore.reset( new EagleStore( *this) );
-    m_brickStore.reset( new BrickStore(*this) );
-    m_controls.reset( new Controlls( *this ) );
-    m_xboxController_thread.reset( new XBoxControllerThread() );
-    m_projectileStore.reset( new ProjectileStore() );
-    m_tankStore.reset( new TanksStorage( *this ) );
-
-    qRegisterMetaType<XBoxControllerEvent>("XBoxControllerEvent");
-    connect( m_xboxController_thread.get(), SIGNAL( signalControllerKeyPress( XBoxControllerEvent ) ),
-             m_controls.get(), SLOT( slotControllerKeyPress( XBoxControllerEvent ) ) );
 }
 
 Scene::~Scene()
@@ -84,14 +65,34 @@ Scene::~Scene()
     for ( auto it = m_tankExplosions.begin(); it != m_tankExplosions.end(); ++it )
         delete it->second;
 
-    m_outerBoundary->Clear();
     m_collision->Clear();
-    m_eagleStore->Clear();
-    m_brickStore->Clear();
-    m_projectileStore->Clear();
-    m_tankStore->Clear();
+    m_renderObjectStore->Clear();
 
     doneCurrent();
+}
+
+void Scene::CreateDependencys()
+{
+    m_collision.reset( new Colission( *this ) );
+    m_outerBoundary.reset( new OuterBoundaryStore( *this ) );
+    m_controls.reset( new Controlls( *this ) );
+    m_xboxController_thread.reset( new XBoxControllerThread() ); 
+    m_tankStore.reset( new TankStore( *this ) );
+    m_renderObjectStore.reset( new RenderObjectsStore() );
+
+    TiSceneObjectsStorePtr eagleStore( new EagleStore( *this) );
+    TiSceneObjectsStorePtr brickStore( new BrickStore(*this) );
+    m_projectileStore.reset( new ProjectileStore(*this) );
+
+    m_renderObjectStore->AddStorage( m_outerBoundary );
+    m_renderObjectStore->AddStorage( brickStore );
+    m_renderObjectStore->AddStorage( eagleStore );
+    m_renderObjectStore->AddStorage( m_tankStore );
+    m_renderObjectStore->AddStorage( m_projectileStore );
+
+    qRegisterMetaType<XBoxControllerEvent>("XBoxControllerEvent");
+    connect( m_xboxController_thread.get(), SIGNAL( signalControllerKeyPress( XBoxControllerEvent ) ),
+             m_controls.get(), SLOT( slotControllerKeyPress( XBoxControllerEvent ) ) );
 }
 
 void Scene::initializeGL()
@@ -124,16 +125,7 @@ void Scene::initializeGL()
 
     m_renderParam.reset( new RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ));
 
-    m_outerBoundary->Init( *m_renderParam );
-    m_eagleStore->Init( *m_renderParam );
-    m_brickStore->Init( *m_renderParam );
-    m_projectileStore->Init( *m_renderParam );
-    m_tankStore->Init( *m_renderParam );
-
-    m_renderStorages.push_back( m_outerBoundary.get() );
-    m_renderStorages.push_back( m_brickStore.get() );
-    m_renderStorages.push_back( m_eagleStore.get() );
-    m_renderStorages.push_back( m_projectileStore.get() );
+    m_renderObjectStore->Init( *m_renderParam );
 }
 
 void Scene::paintGL()
@@ -148,10 +140,7 @@ void Scene::paintGL()
     matrix.scale( m_scale );
     m_program.setUniformValue( m_matrixUniform, matrix );
 
-    for ( auto it: m_renderStorages )
-    {
-        it->Draw();
-    }
+    m_renderObjectStore->Draw();
 }
 
 void Scene::resizeGL( int w, int h )
@@ -249,4 +238,9 @@ void Scene::Update()
 RenderParam* Scene::GetRenderParam()
 {
     return m_renderParam.get();
+}
+
+IProjectileStore* Scene::GetProjectileStore()
+{
+    return m_projectileStore.get();
 }

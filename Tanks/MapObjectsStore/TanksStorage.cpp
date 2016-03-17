@@ -1,13 +1,13 @@
-#include "TanksStorage.h"
+#include "TankStore.h"
 #include "MapObjects/Tank.h"
 #include "MapObjectsStore/IOuterBoundaryStore.h"
 #include "IScene.h"
 
-TanksStorage::TanksStorage( IScene &scene ) : m_scene(scene)
+TankStore::TankStore( IScene &scene ) : m_scene(scene)
 {
 }
 
-void TanksStorage::Init( const RenderParam &param )
+void TankStore::Init( const RenderParam &param )
 {
     m_playerTank.reset( new Tank( param, m_scene ) );
 
@@ -18,7 +18,13 @@ void TanksStorage::Init( const RenderParam &param )
     m_objects.push_back( TiPlanePtr( m_playerTank ) );
 }
 
-ITank* TanksStorage::GetPlayerTank()
+ITank* TankStore::GetPlayerTank()
 {
     return m_playerTank.get();
+}
+
+void TankStore::Clear()
+{
+    m_playerTank.reset();
+    SceneObjectsStore::Clear();
 }
