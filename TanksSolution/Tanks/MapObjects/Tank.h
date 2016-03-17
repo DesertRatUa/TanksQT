@@ -1,6 +1,6 @@
 #ifndef TANK_H
 #define TANK_H
-#include "TankRender.h"
+
 #include "ITank.h"
 
 class IScene;
@@ -8,10 +8,7 @@ class IScene;
 class Tank : public ITank
 {
 public:
-    Tank( IScene &scene );
-
-    virtual void Init( RenderParam &param );
-    virtual void Draw();
+    Tank( const RenderParam &param, IScene &scene );
 
     virtual void MoveUp();
     virtual void MoveDown();
@@ -22,7 +19,6 @@ protected:
     float CalculateStep( const TankRender::Direction direction ) const;
 
     IScene &m_scene;
-    std::auto_ptr<TankRender> m_render;
 };
 
 #endif // TANK_H

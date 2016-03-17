@@ -32,8 +32,7 @@ BrickWall::BrickWall( const RenderParam &param ) :
     QImage image( ":/Textures/TankSpriteSheet.png" );
     QImage frame = image.copy( 256, 0, 15, 15 );
     frame = frame.mirrored( false, true );
-    m_texture.reset( new QOpenGLTexture( frame) );
-    SetTexture( m_texture.get() );
+    SetTexture( new QOpenGLTexture( frame) );
     m_name = "BrickWall";
 
     SetHeight( 50.0f );
@@ -42,8 +41,7 @@ BrickWall::BrickWall( const RenderParam &param ) :
 
 BrickWall::~BrickWall()
 {
-    if (m_texture.get())
-        m_texture->destroy();
+
 }
 
 unsigned long BrickWall::GetId() const

@@ -29,13 +29,12 @@
 #include "SoundOfProjectileExplosion.h"
 #include "XBoxController/XBoxControllerThread.h"
 #include "Colission.h"
-#include "MapObjectsStore/OuterBoundaryStore.h"
-#include "MapObjects/Tank.h"
-#include "MapObjectsStore/EagleStore.h"
 #include "Controlls.h"
 #include "MapObjectsStore/BrickStore.h"
 #include "MapObjectsStore/ProjectileStore.h"
-
+#include "MapObjectsStore/TanksStorage.h"
+#include "MapObjectsStore/EagleStore.h"
+#include "MapObjectsStore/OuterBoundaryStore.h"
 
 static const float step = 10.0f;
 static const float field_height = 700.0f;
@@ -63,12 +62,12 @@ void Scene::CreateDependencys()
 {
     m_collision.reset( new Colission( *this ) );
     m_outerBoundary.reset( new OuterBoundaryStore( *this ) );
-    m_tank.reset( new Tank( *this ) );
-    m_eagle.reset( new EagleStore( *this) );
+    m_eagleStore.reset( new EagleStore( *this) );
     m_brickStore.reset( new BrickStore(*this) );
     m_controls.reset( new Controlls( *this ) );
     m_xboxController_thread.reset( new XBoxControllerThread() );
     m_projectileStore.reset( new ProjectileStore() );
+    m_tankStore.reset( new TanksStorage( *this ) );
 
     qRegisterMetaType<XBoxControllerEvent>("XBoxControllerEvent");
     connect( m_xboxController_thread.get(), SIGNAL( signalControllerKeyPress( XBoxControllerEvent ) ),
@@ -87,11 +86,10 @@ Scene::~Scene()
 
     m_outerBoundary->Clear();
     m_collision->Clear();
-    m_eagle->Clear();
+    m_eagleStore->Clear();
     m_brickStore->Clear();
     m_projectileStore->Clear();
-
-    m_tank.reset(NULL);
+    m_tankStore->Clear();
 
     doneCurrent();
 }
@@ -127,10 +125,15 @@ void Scene::initializeGL()
     m_renderParam.reset( new RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ));
 
     m_outerBoundary->Init( *m_renderParam );
-    m_eagle->Init( *m_renderParam );
-    m_tank->Init( *m_renderParam );
+    m_eagleStore->Init( *m_renderParam );
     m_brickStore->Init( *m_renderParam );
     m_projectileStore->Init( *m_renderParam );
+    m_tankStore->Init( *m_renderParam );
+
+    m_renderStorages.push_back( m_outerBoundary.get() );
+    m_renderStorages.push_back( m_brickStore.get() );
+    m_renderStorages.push_back( m_eagleStore.get() );
+    m_renderStorages.push_back( m_projectileStore.get() );
 }
 
 void Scene::paintGL()
@@ -145,29 +148,10 @@ void Scene::paintGL()
     matrix.scale( m_scale );
     m_program.setUniformValue( m_matrixUniform, matrix );
 
-
-
-    /*
-    for ( auto it = m_projectiles.begin(); it != m_projectiles.end(); ++it )
-        it->second->draw();
-
-    for ( auto it = m_projectileExplosions.begin(); it != m_projectileExplosions.end(); ++it )
-        it->second->draw();
-
-    for ( auto it = m_tankExplosions.begin(); it != m_tankExplosions.end(); ++it )
-        it->second->draw();
-
-    for ( auto it = m_blocksOfBrick.begin(); it != m_blocksOfBrick.end(); ++it )
-        it->second->draw();
-
-    */
-
-    m_eagle->Draw();
-    m_outerBoundary->Draw();
-    m_tank->Draw();
-    m_brickStore->Draw();
-    m_projectileStore->Clear();
-    m_program.release();
+    for ( auto it: m_renderStorages )
+    {
+        it->Draw();
+    }
 }
 
 void Scene::resizeGL( int w, int h )
@@ -254,7 +238,7 @@ IColission* Scene::GetColission()
 
 ITank* Scene::GetTank()
 {
-    return m_tank.get();
+    return m_tankStore->GetPlayerTank();
 }
 
 void Scene::Update()

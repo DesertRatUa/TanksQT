@@ -28,6 +28,8 @@
 #include <QOpenGLFunctions>
 #include "IPlane.h"
 
+typedef std::shared_ptr<QOpenGLTexture> TexturePtr;
+
 struct RenderParam
 {
     RenderParam( QOpenGLShaderProgram *program, int vertexAttr, int textureAttr, int textureUniform );
@@ -56,6 +58,7 @@ public:
     void SetHeight( const float GetHeight );
 
     void SetTexture( QOpenGLTexture *texture );
+    void SetTexture( TexturePtr &texture );
 
     virtual void Draw();
 
@@ -66,7 +69,7 @@ protected:
     std::vector<float> m_vertices;
     std::vector<float> m_textureCoords;
 
-    QOpenGLTexture *m_texture;
+    TexturePtr m_texture;
 
     RenderParam m_renderParam;
 
@@ -77,5 +80,7 @@ protected:
 
     std::string m_name;
 };
+
+
 
 #endif // PLANE_H

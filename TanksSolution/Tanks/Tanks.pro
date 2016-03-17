@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     MapObjects/BrickWall.cpp \
     MapObjectsStore/SceneObjectsStore.cpp \
     MapObjectsStore/ProjectileStore.cpp \
-    MapObjects/Projectile.cpp
+    MapObjects/Projectile.cpp \
+    MapObjectsStore/TanksStorage.cpp
 
 HEADERS  += Dialog.h \
     Scene.h \
@@ -79,7 +80,9 @@ HEADERS  += Dialog.h \
     MapObjects/IBrickWall.h \
     MapObjectsStore/ProjectileStore.h \
     MapObjects/IProjectile.h \
-    MapObjects/Projectile.h
+    MapObjects/Projectile.h \
+    MapObjectsStore/TanksStorage.h \
+    MapObjectsStore/ITanksStorage.h
 
 FORMS    += Dialog.ui
 

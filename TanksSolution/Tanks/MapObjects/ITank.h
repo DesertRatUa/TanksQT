@@ -1,15 +1,13 @@
 #ifndef ITANK
 #define ITANK
 
-struct RenderParam;
+#include "TankRender.h"
 
-class ITank
+class ITank : public TankRender
 {
 public:
+    ITank( const RenderParam &param ) : TankRender(param) {}
     virtual ~ITank() {}
-
-    virtual void Init( RenderParam &param ) = 0;
-    virtual void Draw() = 0;
 
     virtual void MoveUp() = 0;
     virtual void MoveDown() = 0;

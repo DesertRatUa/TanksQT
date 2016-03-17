@@ -24,8 +24,8 @@
 
 #include <QTimer>
 #include <QObject>
-#include "Plane.h"
 #include <vector>
+#include "Plane.h"
 
 class TankRender : public QObject, public Plane
 {
@@ -48,13 +48,13 @@ private slots:
     void slotStopReloading();
 
 private:
-    void DestroyTexture(QOpenGLTexture* texture);
+    void DestroyTexture( TexturePtr &texture );
     void genTextures();
 
-    std::vector<QOpenGLTexture*> m_upTextures;
-    std::vector<QOpenGLTexture*> m_downTextures;
-    std::vector<QOpenGLTexture*> m_rightTextures;
-    std::vector<QOpenGLTexture*> m_leftTextures;
+    std::vector< TexturePtr > m_upTextures;
+    std::vector< TexturePtr > m_downTextures;
+    std::vector< TexturePtr > m_rightTextures;
+    std::vector< TexturePtr > m_leftTextures;
 
     Direction m_direction;
 
