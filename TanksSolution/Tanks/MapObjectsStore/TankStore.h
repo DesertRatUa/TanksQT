@@ -1,18 +1,19 @@
-#ifndef TANKSSTORAGE_H
-#define TANKSSTORAGE_H
+#ifndef TANKSTORE_H
+#define TANKSTORE_H
 
-#include "ITanksStorage.h"
+#include "ITankStore.h"
 
 class IScene;
 class ITank;
 
-class TanksStorage : public ITanksStorage
+class TankStore : public ITankStorage
 {
 public:
-    TanksStorage( IScene &scene );
+    TankStore( IScene &scene );
 
     virtual void Init( const RenderParam &param );
     virtual ITank* GetPlayerTank();
+    virtual void Clear();
 
 protected:
     typedef std::shared_ptr<ITank> TiTankPtr;

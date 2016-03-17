@@ -39,11 +39,6 @@ BrickWall::BrickWall( const RenderParam &param ) :
     SetWidth( 50.0f );
 }
 
-BrickWall::~BrickWall()
-{
-
-}
-
 unsigned long BrickWall::GetId() const
 {
     return m_id;

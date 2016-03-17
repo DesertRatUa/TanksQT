@@ -36,10 +36,10 @@
 #include "IControlls.h"
 #include "IColission.h"
 #include "IScene.h"
+#include "IRenderObjectsStore.h"
 #include "MapObjectsStore/IOuterBoundaryStore.h"
-#include "MapObjectsStore/ISceneObjectsStore.h"
-#include "MapObjectsStore/ITanksStorage.h"
-
+#include "MapObjectsStore/ITankStore.h"
+#include "MapObjectsStore/IProjectileStore.h"
 
 class Scene : public QOpenGLWidget, protected QOpenGLFunctions, public IScene
 {
@@ -55,6 +55,7 @@ public:
     virtual IColission* GetColission();
     virtual ITank* GetTank();
     virtual RenderParam* GetRenderParam();
+    virtual IProjectileStore* GetProjectileStore();
 
     virtual void Update();
 
@@ -77,15 +78,14 @@ private:
     QTimer m_projectileTimer;
 
     std::unique_ptr<IColission> m_collision;
-    std::unique_ptr<IOuterBoundaryStore> m_outerBoundary;
     std::unique_ptr<IControlls> m_controls;
-    std::unique_ptr<ISceneObjectsStore> m_eagleStore;
-    std::unique_ptr<ISceneObjectsStore> m_brickStore;
-    std::unique_ptr<ISceneObjectsStore> m_projectileStore;
-    std::unique_ptr<ITanksStorage> m_tankStore;
     std::unique_ptr<QThread> m_xboxController_thread;
-
+    std::unique_ptr<IRenderObjectsStore> m_renderObjectStore;
     std::unique_ptr<RenderParam> m_renderParam;
+
+    std::shared_ptr<IOuterBoundaryStore> m_outerBoundary;
+    std::shared_ptr<ITankStorage> m_tankStore;
+    std::shared_ptr<IProjectileStore> m_projectileStore;
 
     int m_vertexAttr;
     int m_textureAttr;
@@ -98,9 +98,6 @@ private:
 
     std::map<int, ExplosionOfProjectile*> m_projectileExplosions;
     std::map<int, ExplosionOfTank*> m_tankExplosions;
-
-    typedef std::vector<ISceneObjectsStore*> RenderStorages;
-    RenderStorages m_renderStorages;
 };
 
 #endif // SCENE_H

@@ -43,7 +43,8 @@ SOURCES += main.cpp\
     MapObjectsStore/SceneObjectsStore.cpp \
     MapObjectsStore/ProjectileStore.cpp \
     MapObjects/Projectile.cpp \
-    MapObjectsStore/TanksStorage.cpp
+    MapObjectsStore/TanksStorage.cpp \
+    RenderObjectsStore.cpp
 
 HEADERS  += Dialog.h \
     Scene.h \
@@ -81,8 +82,11 @@ HEADERS  += Dialog.h \
     MapObjectsStore/ProjectileStore.h \
     MapObjects/IProjectile.h \
     MapObjects/Projectile.h \
-    MapObjectsStore/TanksStorage.h \
-    MapObjectsStore/ITanksStorage.h
+    MapObjectsStore/TankStore.h \
+    MapObjectsStore/ITankStore.h \
+    RenderObjectsStore.h \
+    IRenderObjectsStore.h \
+    MapObjectsStore/IProjectileStore.h
 
 FORMS    += Dialog.ui
 

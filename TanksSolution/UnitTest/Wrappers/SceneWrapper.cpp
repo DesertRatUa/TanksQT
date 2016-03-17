@@ -61,6 +61,11 @@ RenderParam* SceneWrapper::GetRenderParam()
         return m_renderParam;
 }
 
+IProjectileStore* SceneWrapper::GetProjectileStore()
+{
+    return NULL;
+}
+
 void SceneWrapper::Update()
 {
 }

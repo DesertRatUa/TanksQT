@@ -13,6 +13,7 @@ public:
     virtual void MoveDown() = 0;
     virtual void MoveLeft() = 0;
     virtual void MoveRight() = 0;
+    virtual void Shoot() = 0;
 };
 
 #endif // ITANK

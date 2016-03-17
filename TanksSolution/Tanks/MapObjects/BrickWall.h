@@ -29,7 +29,7 @@ class BrickWall : public IBrickWall
 {
 public:
     BrickWall( const RenderParam &param );
-    ~BrickWall();
+    virtual ~BrickWall() {}
 
     unsigned long GetId() const;
     virtual std::string GetName() const;

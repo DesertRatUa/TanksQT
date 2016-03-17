@@ -13,6 +13,8 @@ OuterBoundary::OuterBoundary( const RenderParam &param ) :
 
     SetHeight( height );
     SetWidth( width );
+
+    m_name = "OuterBoundary";
 }
 
 OuterBoundary::~OuterBoundary()

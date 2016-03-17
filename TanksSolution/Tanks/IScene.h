@@ -4,6 +4,7 @@
 class IOuterBoundaryStore;
 class IColission;
 class ITank;
+class IProjectileStore;
 struct RenderParam;
 
 class IScene
@@ -17,6 +18,7 @@ public:
     virtual IColission* GetColission() = 0;
     virtual ITank* GetTank() = 0;
     virtual RenderParam* GetRenderParam() = 0;
+    virtual IProjectileStore* GetProjectileStore() = 0;
 
     virtual void Update() = 0;
 };
