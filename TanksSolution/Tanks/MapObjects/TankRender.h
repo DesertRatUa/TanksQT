@@ -35,9 +35,8 @@ public:
     TankRender( const RenderParam &param );
     virtual ~TankRender();
 
-    enum Direction { Up, Down, Left, Right };
-
     void SetDirection( Direction dir );
+    Direction GetDirection() const;
 
     void NextFrame();
 

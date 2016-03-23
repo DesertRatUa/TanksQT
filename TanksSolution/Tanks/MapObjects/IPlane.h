@@ -16,6 +16,7 @@ public:
     virtual std::string GetName() const = 0;
 
     virtual void Draw() = 0;
+    virtual void Update() = 0;
 };
 
 typedef std::shared_ptr<IPlane> TiPlanePtr;

@@ -34,9 +34,6 @@ BrickWall::BrickWall( const RenderParam &param ) :
     frame = frame.mirrored( false, true );
     SetTexture( new QOpenGLTexture( frame) );
     m_name = "BrickWall";
-
-    SetHeight( 50.0f );
-    SetWidth( 50.0f );
 }
 
 unsigned long BrickWall::GetId() const

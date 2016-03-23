@@ -30,8 +30,6 @@
 #include <QOpenGLFunctions>
 #include "MapObjects/ITank.h"
 #include "Ice.h"
-#include "ExplosionOfProjectile.h"
-#include "ExplosionOfTank.h"
 #include "MapObjects/BrickWall.h"
 #include "IControlls.h"
 #include "IColission.h"
@@ -59,9 +57,8 @@ public:
 
     virtual void Update();
 
-private slots:
-    void slotShowProjectileExplosion( int id, bool show );
-    void slotShowTankExplosion( int id, bool show );
+public slots:
+    void slotUpdateLoop();
 
 private:
     virtual void CreateDependencys();
@@ -70,12 +67,9 @@ private:
     void paintGL();
     void resizeGL( int w, int h );
     void keyPressEvent( QKeyEvent *event );
-    void showProjectileExplosions();
-    void addProjectileExplosion( float x0, float y0 );
-    void addTankExplosion( float x0, float y0 );
 
     QOpenGLShaderProgram m_program;
-    QTimer m_projectileTimer;
+    QTimer m_timer;
 
     std::unique_ptr<IColission> m_collision;
     std::unique_ptr<IControlls> m_controls;
@@ -95,9 +89,7 @@ private:
     float m_scale;
     const float m_canvasHeight;
     const float m_canvasWidth;
-
-    std::map<int, ExplosionOfProjectile*> m_projectileExplosions;
-    std::map<int, ExplosionOfTank*> m_tankExplosions;
+    const unsigned m_updateInterval;
 };
 
 #endif // SCENE_H

@@ -14,10 +14,14 @@ public:
     virtual void Init( const RenderParam &param ) = 0;
     virtual void Draw();
     virtual void Clear();
+    virtual void Update();
+    virtual void Delete( IPlane *obj );
 
 protected:
     typedef std::vector<TiPlanePtr> TObjects;
+    typedef std::vector<IPlane*> TPtrObjects;
     TObjects m_objects;
+    TPtrObjects m_delObjects;
 };
 
 #endif // MAPOBJECTSSTORE_H

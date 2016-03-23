@@ -18,7 +18,7 @@ public:
     virtual void Shoot();
 
 protected:
-    float CalculateStep( const TankRender::Direction direction ) const;
+    float CalculateStep( const Direction direction ) const;
 
     IScene &m_scene;
 };

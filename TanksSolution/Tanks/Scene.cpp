@@ -45,7 +45,8 @@ Scene::Scene( QWidget *parent ) :
     QOpenGLWidget( parent ),
     m_scale( 0.5f ),
     m_canvasHeight( 700.0f ),
-    m_canvasWidth( 700.0f )
+    m_canvasWidth( 700.0f ),
+    m_updateInterval( 10 )
 {
     CreateDependencys();
     QThreadPool::globalInstance()->setMaxThreadCount( 15 );
@@ -53,17 +54,13 @@ Scene::Scene( QWidget *parent ) :
     setFocusPolicy( Qt::StrongFocus );
 
     m_xboxController_thread->start();
+
+    connect(&m_timer, SIGNAL( timeout() ), this, SLOT( slotUpdateLoop() ));
 }
 
 Scene::~Scene()
 {
     makeCurrent();
-
-    for ( auto it = m_projectileExplosions.begin(); it != m_projectileExplosions.end(); ++it )
-        delete it->second;
-
-    for ( auto it = m_tankExplosions.begin(); it != m_tankExplosions.end(); ++it )
-        delete it->second;
 
     m_collision->Clear();
     m_renderObjectStore->Clear();
@@ -126,6 +123,7 @@ void Scene::initializeGL()
     m_renderParam.reset( new RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ));
 
     m_renderObjectStore->Init( *m_renderParam );
+    m_timer.start(m_updateInterval);
 }
 
 void Scene::paintGL()
@@ -151,58 +149,6 @@ void Scene::resizeGL( int w, int h )
 void Scene::keyPressEvent( QKeyEvent *event )
 {
     m_controls->KeyPress(event);
-}
-
-void Scene::addProjectileExplosion( float x0, float y0 )
-{
-    ExplosionOfProjectile *explosion = new ExplosionOfProjectile( RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ) );
-    explosion->SetX( x0 );
-    explosion->SetY( y0 );
-    connect( explosion, SIGNAL( signalShowProjectileExplosion( int, bool ) ),
-             this, SLOT( slotShowProjectileExplosion( int, bool ) ) );
-    m_projectileExplosions[explosion->id()] = explosion;
-    explosion->start();
-
-    update();
-}
-
-void Scene::addTankExplosion( float x0, float y0 )
-{
-    ExplosionOfTank *explosion = new ExplosionOfTank( RenderParam( &m_program, m_vertexAttr, m_textureAttr, m_textureUniform ) );
-    explosion->SetX( x0 );
-    explosion->SetY( y0 );
-    connect( explosion, SIGNAL( signalShowTankExplosion( int, bool ) ),
-             this, SLOT( slotShowTankExplosion( int, bool ) ) );
-    m_tankExplosions[explosion->id()] = explosion;
-    explosion->start();
-
-    update();
-}
-
-void Scene::slotShowProjectileExplosion( int id, bool show )
-{
-    auto it = m_projectileExplosions.find( id );
-
-    if ( show == false )
-    {
-        delete it->second;
-        m_projectileExplosions.erase( it );
-    }
-
-    update();
-}
-
-void Scene::slotShowTankExplosion( int id, bool show )
-{
-    auto it = m_tankExplosions.find( id );
-
-    if ( show == false )
-    {
-        delete it->second;
-        m_tankExplosions.erase( it );
-    }
-
-    update();
 }
 
 float Scene::GetWidth() const
@@ -233,6 +179,12 @@ ITank* Scene::GetTank()
 void Scene::Update()
 {
     update();
+}
+
+void Scene::slotUpdateLoop()
+{
+    if (m_renderObjectStore.get())
+        m_renderObjectStore->Update();
 }
 
 RenderParam* Scene::GetRenderParam()
