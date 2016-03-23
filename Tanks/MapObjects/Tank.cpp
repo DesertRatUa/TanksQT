@@ -16,41 +16,41 @@ Tank::Tank( const RenderParam &param, IScene &scene ) :
 
 void Tank::MoveUp()
 {
-    float step = CalculateStep( TankRender::Up );
+    float step = CalculateStep( Up );
     if (step > 0)
         SetY( GetY() - step );
-    SetDirection( TankRender::Up );
+    SetDirection( Up );
     m_scene.Update();
 }
 
 void Tank::MoveDown()
 {
-    float step = CalculateStep( TankRender::Down );
+    float step = CalculateStep( Down );
     if (step > 0)
         SetY( GetY() + step );
-    SetDirection( TankRender::Down );
+    SetDirection( Down );
     m_scene.Update();
 }
 
 void Tank::MoveLeft()
 {
-    float step = CalculateStep( TankRender::Left );
+    float step = CalculateStep( Left );
     if ( step > 0 )
         SetX( GetX() - step );
-    SetDirection( TankRender::Left );
+    SetDirection( Left );
     m_scene.Update();
 }
 
 void Tank::MoveRight()
 {
-    float step = CalculateStep( TankRender::Right );
+    float step = CalculateStep( Right );
     if ( step > 0 )
         SetX( GetX() + step );
-    SetDirection( TankRender::Right );
+    SetDirection( Right );
     m_scene.Update();
 }
 
-float Tank::CalculateStep( const TankRender::Direction direction ) const
+float Tank::CalculateStep( const Direction direction ) const
 {
     IColission *colission = m_scene.GetColission();
     assert(colission);
@@ -65,18 +65,18 @@ float Tank::CalculateStep( const TankRender::Direction direction ) const
 
         switch (direction)
         {
-            case TankRender::Up:
+            case Up:
                 param.m_y = GetY() - step;
                 break;
-            case TankRender::Down:
+            case Down:
                 param.m_y = GetY() + step;
                 break;
 
-            case TankRender::Left:
+            case Left:
                 param.m_x = GetX() - step;
                 break;
 
-            case TankRender::Right:
+            case Right:
                 param.m_x = GetX() + step;
                 break;
         }
@@ -87,6 +87,31 @@ float Tank::CalculateStep( const TankRender::Direction direction ) const
 
 void Tank::Shoot()
 {
-    m_scene.GetProjectileStore()->CreateProjectile(GetX(), GetY());
+    IProjectileStore *store = m_scene.GetProjectileStore();
+    float x = 0.f;
+    float y = 0.f;
+
+    switch (GetDirection())
+    {
+        case Up:
+            x = GetX();
+            y = GetY() - store->GetDefaultHeight();
+            break;
+        case Down:
+            x = GetX();
+            y = GetY() + GetHeight();
+            break;
+
+        case Left:
+            x = GetX() - store->GetDefaultWidth();
+            y = GetY();
+            break;
+
+        case Right:
+            x = GetX() + GetWidth();
+            y = GetY();
+            break;
+    }
+    store->CreateProjectile( GetDirection(), x, y);
     m_scene.Update();
 }

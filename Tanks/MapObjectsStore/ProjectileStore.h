@@ -11,7 +11,11 @@ public:
     ProjectileStore( IScene &scene );
 
     virtual void Init( const RenderParam &param );
-    virtual void CreateProjectile(float x, float y);
+    virtual void CreateProjectile(const Direction direction, const float x, const float y);
+    virtual void Update();
+
+    virtual float GetDefaultWidth();
+    virtual float GetDefaultHeight();
 
 protected:
     IScene &m_scene;

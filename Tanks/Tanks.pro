@@ -19,13 +19,10 @@ TEMPLATE = app
 SOURCES += main.cpp\
         Dialog.cpp \
     Scene.cpp \
-    Ice.cpp \
     MapObjects/Plane.cpp \
     SoundOfShot.cpp \
     SoundOfTankExplosion.cpp \
     SoundOfProjectileExplosion.cpp \
-    ExplosionOfProjectile.cpp \
-    ExplosionOfTank.cpp \
     MapObjects/OuterBoundary.cpp \
     MapObjects/Eagle.cpp \
     Controlls.cpp \
@@ -53,8 +50,6 @@ HEADERS  += Dialog.h \
     SoundOfShot.h \
     SoundOfTankExplosion.h \
     SoundOfProjectileExplosion.h \
-    ExplosionOfProjectile.h \
-    ExplosionOfTank.h \
     MapObjects/OuterBoundary.h \
     MapObjects/Eagle.h \
     Controlls.h \

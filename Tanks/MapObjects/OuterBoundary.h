@@ -9,9 +9,6 @@ class OuterBoundary : public Plane
 public:
     OuterBoundary( const RenderParam &param );
     ~OuterBoundary();
-
-    static float GetDefaultWidth();
-    static float GetDefaultHeight();
 };
 
 #endif // OUTERBOUNDARY_H

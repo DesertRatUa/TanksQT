@@ -26,10 +26,7 @@ TankRender::TankRender( const RenderParam &param ) :
     m_isReloading( false )
 {
     genTextures();
-    SetDirection( TankRender::Up );
-
-    SetHeight( 50.0f );
-    SetWidth( 50.0f );
+    SetDirection( Up );
 }
 
 TankRender::~TankRender()
@@ -97,22 +94,22 @@ void TankRender::DestroyTexture( TexturePtr &texture )
     texture.reset();
 }
 
-void TankRender::SetDirection( TankRender::Direction dir )
+void TankRender::SetDirection( Direction dir )
 {
     m_direction = dir;
 
     switch( m_direction )
     {
-        case TankRender::Up:
+        case Up:
             SetTexture( m_upTextures[0] );
             break;
-        case TankRender::Left:
+        case Left:
             SetTexture( m_leftTextures[0] );
             break;
-        case TankRender::Down:
+        case Down:
             SetTexture( m_downTextures[0] );
             break;
-        case TankRender::Right:
+        case Right:
             SetTexture( m_rightTextures[0] );
             break;
     }
@@ -125,16 +122,16 @@ void TankRender::NextFrame()
 
     switch( m_direction )
     {
-        case TankRender::Up:
+        case Up:
             SetTexture( m_upTextures[counter] );
             break;
-        case TankRender::Left:
+        case Left:
             SetTexture( m_leftTextures[counter] );
             break;
-        case TankRender::Down:
+        case Down:
             SetTexture( m_downTextures[counter] );
             break;
-        case TankRender::Right:
+        case Right:
             SetTexture( m_rightTextures[counter] );
             break;
     }
@@ -162,4 +159,9 @@ void TankRender::slotStopReloading()
 {
     m_timerOfReloading.stop();
     m_isReloading = false;
+}
+
+Direction TankRender::GetDirection() const
+{
+    return m_direction;
 }

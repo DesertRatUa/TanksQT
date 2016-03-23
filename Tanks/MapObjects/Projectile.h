@@ -7,18 +7,16 @@
 
 class IScene;
 
-class Projectile : public QObject, public IProjectile
+class Projectile : public IProjectile
 {
-    Q_OBJECT
-
 public:
-    Projectile( const RenderParam &param, IScene &scene );
+    Projectile( const Direction direction, const RenderParam &param, IScene &scene );
+    virtual void Update();
 
-public slots:
-    void slotTimerUpdate();
-
-protected:
+protected:    
     IScene &m_scene;
+    float m_speed;
+    Direction m_direction;
 };
 
 #endif // PROJECTILE_H

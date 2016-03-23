@@ -29,3 +29,11 @@ void RenderObjectsStore::Draw()
         it->Draw();
     }
 }
+
+void RenderObjectsStore::Update()
+{
+    for ( auto it: m_renderObjects )
+    {
+        it->Update();
+    }
+}

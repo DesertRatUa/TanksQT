@@ -37,3 +37,8 @@ void PlaneWrapper::Draw()
 {
 
 }
+
+void PlaneWrapper::Update()
+{
+
+}

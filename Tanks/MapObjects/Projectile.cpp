@@ -3,11 +3,13 @@
 
 #include "Projectile.h"
 #include "IScene.h"
+#include "IColission.h"
+#include "MapObjectsStore/IProjectileStore.h"
 
-static Projectile *m_proj = NULL;
+static const float SPEED = 10;
 
-Projectile::Projectile( const RenderParam &param, IScene &scene ) :
-    IProjectile(param), m_scene(scene)
+Projectile::Projectile(const Direction direction, const RenderParam &param, IScene &scene ) :
+    IProjectile(param), m_scene(scene), m_direction(direction)
 {
     QImage image( ":/Textures/TankSpriteSheet.png" );
     QImage frame = image.copy( 21 * 16, 7 * 16, 16, 16 );
@@ -15,18 +17,36 @@ Projectile::Projectile( const RenderParam &param, IScene &scene ) :
     SetTexture( new QOpenGLTexture( frame) );
     m_name = "Projectile";
 
-    SetHeight( 50.0f );
-    SetWidth( 50.0f );
-    m_proj = this;
-
-    QTimer *timer = new QTimer();
-    connect(timer, SIGNAL( timeout() ), this, SLOT( slotTimerUpdate() ));
-    timer->start(200);
+    m_speed = SPEED;
 }
 
-void Projectile::slotTimerUpdate()
+void Projectile::Update()
 {
-    m_proj->SetX(m_proj->GetX() + ( ( std::rand() % 20 ) - 10) );
-    m_proj->SetY(m_proj->GetY() + ( ( std::rand() % 20 ) - 10) );
-    m_scene.Update();
+    MovementParams param(GetX(), GetY(), GetWidth(), GetHeight());
+    switch (m_direction)
+    {
+        case Up:
+            param.m_y = GetY() - m_speed;
+            break;
+        case Down:
+            param.m_y = GetY() + m_speed;
+            break;
+
+        case Left:
+            param.m_x = GetX() - m_speed;
+            break;
+
+        case Right:
+            param.m_x = GetX() + m_speed;
+            break;
+    }
+    if (m_scene.GetColission()->CheckMovement( param ))
+    {
+        SetX( param.m_x );
+        SetY( param.m_y );
+    }
+    else
+    {
+        m_scene.GetProjectileStore()->Delete(this);
+    }
 }

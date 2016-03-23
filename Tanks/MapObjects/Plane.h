@@ -30,6 +30,8 @@
 
 typedef std::shared_ptr<QOpenGLTexture> TexturePtr;
 
+enum Direction { Up, Down, Left, Right };
+
 struct RenderParam
 {
     RenderParam( QOpenGLShaderProgram *program, int vertexAttr, int textureAttr, int textureUniform );
@@ -61,6 +63,10 @@ public:
     void SetTexture( TexturePtr &texture );
 
     virtual void Draw();
+    virtual void Update();
+
+    static float GetDefaultWidth();
+    static float GetDefaultHeight();
 
 protected:
     void initVertices();

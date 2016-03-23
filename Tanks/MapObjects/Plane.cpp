@@ -22,6 +22,10 @@
 #include "Plane.h"
 #include "Log.h"
 
+static const float DEFAULT_WIDTH = 50.f;
+static const float DEFAULT_HEIGHT = 50.f;
+
+
 RenderParam::RenderParam(QOpenGLShaderProgram *program, int vertexAttr, int textureAttr, int textureUniform) :
     m_program(program),
     m_vertexAttr(vertexAttr),
@@ -35,8 +39,8 @@ Plane::Plane( const RenderParam &param ) :
     m_renderParam(param),
     m_x0( 0.0f ),
     m_y0( 0.0f ),
-    m_width( 64.0f ),
-    m_height( 64.0f )
+    m_width( DEFAULT_WIDTH ),
+    m_height( DEFAULT_HEIGHT )
 
 {
     initVertices();
@@ -66,6 +70,10 @@ void Plane::Draw()
 
     m_renderParam.m_program->disableAttributeArray( m_renderParam.m_vertexAttr );
     m_renderParam.m_program->disableAttributeArray( m_renderParam.m_textureAttr );
+}
+
+void Plane::Update()
+{
 }
 
 void Plane::SetX( const float x )
@@ -189,4 +197,14 @@ float Plane::GetHeight() const
 std::string Plane::GetName() const
 {
     return m_name;
+}
+
+float Plane::GetDefaultWidth()
+{
+    return DEFAULT_WIDTH;
+}
+
+float Plane::GetDefaultHeight()
+{
+    return DEFAULT_HEIGHT;
 }
