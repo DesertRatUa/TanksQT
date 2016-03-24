@@ -63,7 +63,7 @@ public:
     void SetTexture( TexturePtr &texture );
 
     virtual void Draw();
-    virtual void Update();
+    virtual void Update( const float frameTime );
 
     static float GetDefaultWidth();
     static float GetDefaultHeight();

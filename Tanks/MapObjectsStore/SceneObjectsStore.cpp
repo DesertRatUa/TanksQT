@@ -8,11 +8,11 @@ void SceneObjectsStore::Draw()
     }
 }
 
-void SceneObjectsStore::Update()
+void SceneObjectsStore::Update( const float frameTime )
 {
     for ( auto it : m_objects )
     {
-        it->Update();
+        it->Update( frameTime );
     }
     for (auto dit : m_delObjects)
     {

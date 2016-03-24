@@ -6,7 +6,7 @@
 #include "IColission.h"
 #include "MapObjectsStore/IProjectileStore.h"
 
-static const float SPEED = 10;
+static const float SPEED = 0.4f;
 
 Projectile::Projectile(const Direction direction, const RenderParam &param, IScene &scene ) :
     IProjectile(param), m_scene(scene), m_direction(direction)
@@ -16,28 +16,28 @@ Projectile::Projectile(const Direction direction, const RenderParam &param, ISce
     frame = frame.mirrored( false, true );
     SetTexture( new QOpenGLTexture( frame) );
     m_name = "Projectile";
-
-    m_speed = SPEED;
 }
 
-void Projectile::Update()
+void Projectile::Update( const float frameTime )
 {
     MovementParams param(GetX(), GetY(), GetWidth(), GetHeight());
+    const float distance = SPEED * frameTime;
+
     switch (m_direction)
     {
         case Up:
-            param.m_y = GetY() - m_speed;
+            param.m_y = GetY() - distance;
             break;
         case Down:
-            param.m_y = GetY() + m_speed;
+            param.m_y = GetY() + distance;
             break;
 
         case Left:
-            param.m_x = GetX() - m_speed;
+            param.m_x = GetX() - distance;
             break;
 
         case Right:
-            param.m_x = GetX() + m_speed;
+            param.m_x = GetX() + distance;
             break;
     }
     if (m_scene.GetColission()->CheckMovement( param ))

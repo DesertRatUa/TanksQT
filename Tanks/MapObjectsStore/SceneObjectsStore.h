@@ -14,7 +14,7 @@ public:
     virtual void Init( const RenderParam &param ) = 0;
     virtual void Draw();
     virtual void Clear();
-    virtual void Update();
+    virtual void Update( const float frameTime );
     virtual void Delete( IPlane *obj );
 
 protected:

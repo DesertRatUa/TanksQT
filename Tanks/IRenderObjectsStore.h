@@ -14,7 +14,7 @@ public:
     virtual void Init( const RenderParam &param ) = 0;
     virtual void Clear() = 0;
     virtual void Draw() = 0;
-    virtual void Update() = 0;
+    virtual void Update( const float frameTime ) = 0;
 };
 
 #endif // RENDEROBJECTSSTORE_H

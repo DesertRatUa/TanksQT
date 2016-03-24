@@ -131,6 +131,13 @@ std::string Log::IntToStr( const unsigned long value )
     return std::string(buff);
 }
 
+std::string Log::FloatToStr( const float value )
+{
+    char buff[100];
+    sprintf(buff, "%f", value);
+    return std::string(buff);
+}
+
 std::string Log::IntToStr( const size_t &value )
 {
     char buff[100];

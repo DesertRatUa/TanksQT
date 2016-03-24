@@ -14,7 +14,7 @@ public:
     virtual float GetWidth() const;
     virtual std::string GetName() const;
     virtual void Draw();
-    virtual void Update();
+    virtual void Update( const float frameTime );
 
     float m_x;
     float m_y;
