@@ -36,17 +36,23 @@
 #include "MapObjectsStore/TankStore.h"
 #include "MapObjectsStore/EagleStore.h"
 #include "MapObjectsStore/OuterBoundaryStore.h"
+#include "Log.h"
 
-static const float step = 10.0f;
-static const float field_height = 700.0f;
-static const float field_width = 700.0f;
+static const float STEP = 10.0f;
+static const float FIELD_HEIGHT = 700.0f;
+static const float FIELD_WIDTH = 700.0f;
+static const unsigned UPDATE_INTERVAL = 10;
+static const unsigned FPS_INTERVAL = 1000;
+
 
 Scene::Scene( QWidget *parent ) :
     QOpenGLWidget( parent ),
     m_scale( 0.5f ),
-    m_canvasHeight( 700.0f ),
-    m_canvasWidth( 700.0f ),
-    m_updateInterval( 10 )
+    m_canvasHeight( FIELD_HEIGHT ),
+    m_canvasWidth( FIELD_WIDTH ),
+    m_updateInterval( UPDATE_INTERVAL ),
+    m_avarageFps( 0 ),
+    m_avarageFpsCount( 0 )
 {
     CreateDependencys();
     QThreadPool::globalInstance()->setMaxThreadCount( 15 );
@@ -128,17 +134,26 @@ void Scene::initializeGL()
 
 void Scene::paintGL()
 {
+    glEnable( GL_BLEND );
+
     glClear( GL_COLOR_BUFFER_BIT );
 
     if ( !m_program.bind() )
         return;
 
     QMatrix4x4 matrix;
-    matrix.ortho( 0.0f, field_height, field_width, 0.0f, -2.0f, 2.0f );
+    matrix.ortho( 0.0f, FIELD_HEIGHT, FIELD_WIDTH, 0.0f, -2.0f, 2.0f );
     matrix.scale( m_scale );
     m_program.setUniformValue( m_matrixUniform, matrix );
 
     m_renderObjectStore->Draw();
+
+    QPainter paint(this);
+    paint.setPen(Qt::red);
+    paint.setFont(QFont("Arial", 20));
+    paint.drawText( 25, 45, Log::IntToStr(m_fps).c_str() );
+    paint.drawText( 25, 65, Log::IntToStr(int(m_updateInterval)).c_str() );
+    paint.end();
 }
 
 void Scene::resizeGL( int w, int h )
@@ -153,12 +168,12 @@ void Scene::keyPressEvent( QKeyEvent *event )
 
 float Scene::GetWidth() const
 {
-    return field_width * ( 1 / m_scale );
+    return FIELD_WIDTH * ( 1 / m_scale );
 }
 
 float Scene::GetHeigth() const
 {
-    return field_height * ( 1 / m_scale );
+    return FIELD_HEIGHT * ( 1 / m_scale );
 }
 
 const IOuterBoundaryStore *Scene::GetOuterBoundary() const
@@ -181,11 +196,57 @@ void Scene::Update()
     update();
 }
 
+float Scene::GetFrameTime()
+{
+    m_currentFrameTime = std::chrono::system_clock::now();
+    std::chrono::duration<float> frame_time( m_currentFrameTime - m_lastFrameTime );
+    std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(frame_time);
+    m_lastFrameTime = std::chrono::system_clock::now();
+    return ms.count();
+}
+
 void Scene::slotUpdateLoop()
 {
-    if (m_renderObjectStore.get())
-        m_renderObjectStore->Update();
+    //m_timer.stop();
+    const float frameTime = GetFrameTime();
+    UpdateFps(frameTime);
+
+    if (m_renderObjectStore)
+        m_renderObjectStore->Update(frameTime);
+    update();
+    //m_timer.start(m_updateInterval);
 }
+
+void Scene::UpdateFps( const float frameTime )
+{
+    unsigned fps = 1000 / ( frameTime > 0 ? frameTime : 1 );
+
+    if (fps > 60)
+        m_updateInterval = 1000 / 60;
+    else
+        m_updateInterval = UPDATE_INTERVAL;
+
+    m_avarageFps += fps;
+    ++m_avarageFpsCount;
+
+    std::chrono::duration<float> fps_time(m_currentFrameTime - m_lastFpsTime);
+    std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(fps_time);
+    if (ms.count() > FPS_INTERVAL)
+    {
+        if (m_avarageFpsCount > 0)
+        {
+            m_fps = m_avarageFps / m_avarageFpsCount;
+        }
+        else
+        {
+            m_fps = fps;
+        }
+        m_lastFpsTime = m_currentFrameTime;
+        m_avarageFps = 0;
+        m_avarageFpsCount = 0;
+    }
+}
+
 
 RenderParam* Scene::GetRenderParam()
 {

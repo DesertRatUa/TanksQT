@@ -21,12 +21,6 @@ void ProjectileStore::Init( const RenderParam &param )
      m_objects.push_back(proj);
 }
 
-void ProjectileStore::Update()
-{
-    SceneObjectsStore::Update();
-    m_scene.Update();
-}
-
 float ProjectileStore::GetDefaultWidth()
 {
     return Projectile::GetDefaultWidth();

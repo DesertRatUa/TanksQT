@@ -11,11 +11,10 @@ class Projectile : public IProjectile
 {
 public:
     Projectile( const Direction direction, const RenderParam &param, IScene &scene );
-    virtual void Update();
+    virtual void Update( const float frameTime );
 
 protected:    
     IScene &m_scene;
-    float m_speed;
     Direction m_direction;
 };
 

@@ -38,7 +38,7 @@ void PlaneWrapper::Draw()
 
 }
 
-void PlaneWrapper::Update()
+void PlaneWrapper::Update(const float frameTime)
 {
 
 }

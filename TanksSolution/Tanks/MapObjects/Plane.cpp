@@ -72,7 +72,7 @@ void Plane::Draw()
     m_renderParam.m_program->disableAttributeArray( m_renderParam.m_textureAttr );
 }
 
-void Plane::Update()
+void Plane::Update( const float frameTime )
 {
 }
 

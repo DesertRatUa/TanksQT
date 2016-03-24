@@ -30,10 +30,10 @@ void RenderObjectsStore::Draw()
     }
 }
 
-void RenderObjectsStore::Update()
+void RenderObjectsStore::Update( const float frameTime )
 {
     for ( auto it: m_renderObjects )
     {
-        it->Update();
+        it->Update( frameTime );
     }
 }

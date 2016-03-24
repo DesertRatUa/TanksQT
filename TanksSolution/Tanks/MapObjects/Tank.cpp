@@ -113,5 +113,4 @@ void Tank::Shoot()
             break;
     }
     store->CreateProjectile( GetDirection(), x, y);
-    m_scene.Update();
 }

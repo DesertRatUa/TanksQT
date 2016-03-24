@@ -28,6 +28,8 @@
 #include <QTimer>
 #include <map>
 #include <QOpenGLFunctions>
+#include <chrono>
+
 #include "MapObjects/ITank.h"
 #include "Ice.h"
 #include "MapObjects/BrickWall.h"
@@ -67,6 +69,8 @@ private:
     void paintGL();
     void resizeGL( int w, int h );
     void keyPressEvent( QKeyEvent *event );
+    float GetFrameTime();
+    void UpdateFps( const float frameTime );
 
     QOpenGLShaderProgram m_program;
     QTimer m_timer;
@@ -87,9 +91,16 @@ private:
     int m_matrixUniform;
 
     float m_scale;
+    int m_fps;
+    unsigned m_avarageFps;
+    unsigned m_avarageFpsCount;
+    std::chrono::system_clock::time_point m_lastFrameTime;
+    std::chrono::system_clock::time_point m_currentFrameTime;
+    std::chrono::system_clock::time_point m_lastFpsTime;
+
     const float m_canvasHeight;
     const float m_canvasWidth;
-    const unsigned m_updateInterval;
+    unsigned m_updateInterval;
 };
 
 #endif // SCENE_H

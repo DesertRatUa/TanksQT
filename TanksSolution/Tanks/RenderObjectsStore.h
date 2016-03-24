@@ -18,7 +18,7 @@ public:
     virtual void Init( const RenderParam &param );
     virtual void Clear();
     virtual void Draw();
-    virtual void Update();
+    virtual void Update( const float frameTime );
 
 protected:
     typedef std::vector<TiSceneObjectsStorePtr> RenderObjects;
