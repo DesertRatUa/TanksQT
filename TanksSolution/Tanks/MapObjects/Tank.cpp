@@ -20,7 +20,6 @@ void Tank::MoveUp()
     if (step > 0)
         SetY( GetY() - step );
     SetDirection( Up );
-    m_scene.Update();
 }
 
 void Tank::MoveDown()
@@ -29,7 +28,6 @@ void Tank::MoveDown()
     if (step > 0)
         SetY( GetY() + step );
     SetDirection( Down );
-    m_scene.Update();
 }
 
 void Tank::MoveLeft()
@@ -38,7 +36,6 @@ void Tank::MoveLeft()
     if ( step > 0 )
         SetX( GetX() - step );
     SetDirection( Left );
-    m_scene.Update();
 }
 
 void Tank::MoveRight()
@@ -47,7 +44,6 @@ void Tank::MoveRight()
     if ( step > 0 )
         SetX( GetX() + step );
     SetDirection( Right );
-    m_scene.Update();
 }
 
 float Tank::CalculateStep( const Direction direction ) const

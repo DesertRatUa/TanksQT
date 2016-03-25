@@ -15,8 +15,6 @@ signals:
 
 protected:
     void run();
-
-    bool m_run;
 };
 
 #endif // XBOXCONTROLLERTHREAD_H

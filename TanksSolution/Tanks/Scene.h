@@ -57,8 +57,6 @@ public:
     virtual RenderParam* GetRenderParam();
     virtual IProjectileStore* GetProjectileStore();
 
-    virtual void Update();
-
 public slots:
     void slotUpdateLoop();
 
@@ -78,6 +76,7 @@ private:
     std::unique_ptr<IColission> m_collision;
     std::unique_ptr<IControlls> m_controls;
     std::unique_ptr<QThread> m_xboxController_thread;
+    std::unique_ptr<QThread> m_updateLoop_thread;
     std::unique_ptr<IRenderObjectsStore> m_renderObjectStore;
     std::unique_ptr<RenderParam> m_renderParam;
 
@@ -93,7 +92,6 @@ private:
     float m_scale;
     int m_fps;
     unsigned m_avarageFps;
-    unsigned m_avarageFpsCount;
     std::chrono::system_clock::time_point m_lastFrameTime;
     std::chrono::system_clock::time_point m_currentFrameTime;
     std::chrono::system_clock::time_point m_lastFpsTime;

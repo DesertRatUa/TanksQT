@@ -3,11 +3,10 @@
 #include "QKeyEvent"
 #include "QApplication"
 #include "XBoxControllerEvent.h"
+#include <QDebug>
 
-XBoxControllerThread::XBoxControllerThread() :
-    m_run(true)
+XBoxControllerThread::XBoxControllerThread()
 {
-
 }
 
 /*
@@ -20,7 +19,7 @@ XBoxControllerThread::XBoxControllerThread() :
 void XBoxControllerThread::run()
 {
     CXBOXController controller(1);
-    while (m_run)
+    while (!isInterruptionRequested())
     {
         QApplication::processEvents();
         if(controller.IsConnected())
@@ -68,5 +67,5 @@ void XBoxControllerThread::run()
         }
         msleep(100);
     }
+    exec();
 }
-

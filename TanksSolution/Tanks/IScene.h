@@ -19,8 +19,6 @@ public:
     virtual ITank* GetTank() = 0;
     virtual RenderParam* GetRenderParam() = 0;
     virtual IProjectileStore* GetProjectileStore() = 0;
-
-    virtual void Update() = 0;
 };
 
 

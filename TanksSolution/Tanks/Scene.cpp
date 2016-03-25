@@ -37,13 +37,15 @@
 #include "MapObjectsStore/EagleStore.h"
 #include "MapObjectsStore/OuterBoundaryStore.h"
 #include "Log.h"
+#include "MainLoopThread.h"
+#include <windows.h>
 
 static const float STEP = 10.0f;
 static const float FIELD_HEIGHT = 700.0f;
 static const float FIELD_WIDTH = 700.0f;
 static const unsigned UPDATE_INTERVAL = 10;
 static const unsigned FPS_INTERVAL = 1000;
-
+static const unsigned TARGET_FPS = 60;
 
 Scene::Scene( QWidget *parent ) :
     QOpenGLWidget( parent ),
@@ -51,8 +53,7 @@ Scene::Scene( QWidget *parent ) :
     m_canvasHeight( FIELD_HEIGHT ),
     m_canvasWidth( FIELD_WIDTH ),
     m_updateInterval( UPDATE_INTERVAL ),
-    m_avarageFps( 0 ),
-    m_avarageFpsCount( 0 )
+    m_avarageFps( 0 )
 {
     CreateDependencys();
     QThreadPool::globalInstance()->setMaxThreadCount( 15 );
@@ -60,6 +61,7 @@ Scene::Scene( QWidget *parent ) :
     setFocusPolicy( Qt::StrongFocus );
 
     m_xboxController_thread->start();
+    //m_updateLoop_thread->start();
 
     connect(&m_timer, SIGNAL( timeout() ), this, SLOT( slotUpdateLoop() ));
 }
@@ -70,6 +72,13 @@ Scene::~Scene()
 
     m_collision->Clear();
     m_renderObjectStore->Clear();
+    m_xboxController_thread->requestInterruption();
+    m_xboxController_thread->quit();
+    m_xboxController_thread->wait();
+
+    m_updateLoop_thread->requestInterruption();
+    m_updateLoop_thread->quit();
+    m_updateLoop_thread->wait();
 
     doneCurrent();
 }
@@ -96,6 +105,9 @@ void Scene::CreateDependencys()
     qRegisterMetaType<XBoxControllerEvent>("XBoxControllerEvent");
     connect( m_xboxController_thread.get(), SIGNAL( signalControllerKeyPress( XBoxControllerEvent ) ),
              m_controls.get(), SLOT( slotControllerKeyPress( XBoxControllerEvent ) ) );
+
+    m_updateLoop_thread.reset( new MainLoopThread( m_updateInterval ) );
+    connect( m_updateLoop_thread.get(), SIGNAL( signalLoop() ), this, SLOT(  slotUpdateLoop() ) );
 }
 
 void Scene::initializeGL()
@@ -191,11 +203,6 @@ ITank* Scene::GetTank()
     return m_tankStore->GetPlayerTank();
 }
 
-void Scene::Update()
-{
-    update();
-}
-
 float Scene::GetFrameTime()
 {
     m_currentFrameTime = std::chrono::system_clock::now();
@@ -207,46 +214,36 @@ float Scene::GetFrameTime()
 
 void Scene::slotUpdateLoop()
 {
-    //m_timer.stop();
+    m_timer.stop();
     const float frameTime = GetFrameTime();
     UpdateFps(frameTime);
+    m_timer.start(m_updateInterval);
 
     if (m_renderObjectStore)
         m_renderObjectStore->Update(frameTime);
     update();
-    //m_timer.start(m_updateInterval);
 }
 
 void Scene::UpdateFps( const float frameTime )
 {
     unsigned fps = 1000 / ( frameTime > 0 ? frameTime : 1 );
 
-    if (fps > 60)
-        m_updateInterval = 1000 / 60;
+    if (fps > TARGET_FPS)
+        m_updateInterval = 1000 / TARGET_FPS;
     else
         m_updateInterval = UPDATE_INTERVAL;
 
-    m_avarageFps += fps;
-    ++m_avarageFpsCount;
+    ++m_avarageFps;
 
     std::chrono::duration<float> fps_time(m_currentFrameTime - m_lastFpsTime);
     std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(fps_time);
     if (ms.count() > FPS_INTERVAL)
     {
-        if (m_avarageFpsCount > 0)
-        {
-            m_fps = m_avarageFps / m_avarageFpsCount;
-        }
-        else
-        {
-            m_fps = fps;
-        }
+        m_fps = m_avarageFps / (FPS_INTERVAL / 1000);
         m_lastFpsTime = m_currentFrameTime;
         m_avarageFps = 0;
-        m_avarageFpsCount = 0;
     }
 }
-
 
 RenderParam* Scene::GetRenderParam()
 {
